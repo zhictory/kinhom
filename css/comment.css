@@ -1,0 +1,4617 @@
+/*
+ *  artDialog 弹窗通用框架样式
+*/
+.ui-dialog {
+    *zoom:1;
+    _float: left;
+	/*padding:8px;*/
+    position: relative;
+    background-color: #FFF;
+    border: 1px solid #2f6ceb;
+    /*border-radius: 4px;*/
+    outline: 0;
+    background-clip: padding-box;
+    font-family: "Microsoft Yahei", Helvetica, arial, sans-serif;
+    color: #333;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: -webkit-transform .15s ease-in-out, opacity .15s ease-in-out;
+    transition: transform .15s ease-in-out, opacity .15s ease-in-out;
+}
+.ui-popup-show .ui-dialog {
+    opacity: 1; 
+    -webkit-transform: scale(1);
+    transform: scale(1); 
+}
+.ui-popup-focus .ui-dialog {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.ui-popup-modal .ui-dialog {
+    border: none;
+    /*box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);
+	box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);*/
+}
+.ui-dialog-grid {
+    width: auto;
+    margin: 0;
+    border: 0 none;
+    border-collapse:collapse;
+    border-spacing: 0;
+    background: transparent;
+}
+.ui-dialog-header,
+.ui-dialog-body,
+.ui-dialog-footer {
+    padding: 0;
+    border: 0 none;
+    background: transparent;
+}
+.ui-dialog-header {
+	padding:8px;
+	text-align:center;
+	color:#fff;
+    white-space: nowrap;
+	background-color:#2f6ceb;
+/*	border-top-left-radius:4px;
+	border-top-right-radius:4px;*/
+}
+.ui-dialog-close {
+    position: relative;
+    _position: absolute;
+    float: right;
+    top: 3px;
+    right: 0px;
+    height: 20px;
+	width:20px;
+    overflow: hidden;
+    text-indent: -999999px;
+    font-size: 24px;
+	font-weight:bold;
+    line-height: 28px;
+	text-align:center;
+    /*color: #2f6ceb;*/
+    cursor: pointer;
+    /*background: #a1bdf6;*/
+    border: 0;
+	/*border-radius:14px;*/
+    background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDpFRkY0NTMyMjE2OTYxMUU1QjdFMERGRTVGQjMwQTI0MSIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDpFRkY0NTMyMzE2OTYxMUU1QjdFMERGRTVGQjMwQTI0MSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkVGRjQ1MzIwMTY5NjExRTVCN0UwREZFNUZCMzBBMjQxIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOkVGRjQ1MzIxMTY5NjExRTVCN0UwREZFNUZCMzBBMjQxIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+0Sx0WQAAAJhJREFUeNqk1AEOwBAMBVCWf5y5/0HsPsZGYqatloRIxUsjP3xK6XTvuNzeeJwjT59naIUNrBgeeYm1GIydNqzci6hFK/rBSgHdoRb9YSOoQafYDFxBSYwCOZTFOHCGOgmTQKrTyF04FqKRiL2pw/7NliIFbc4kFEpMzCk0oV1BocREFAaMRWHESBQb2BRF/bGt2Ij6W4ABANGZQWc8QQwoAAAAAElFTkSuQmCC") center center no-repeat;
+}
+.ui-dialog-close:hover,
+.ui-dialog-close:focus {
+    /*color: #2f6ceb;*/
+    text-decoration: none;
+    cursor: pointer;
+    outline: 0;
+}
+.ui-dialog-title {
+    margin: 0;
+    line-height: 1.428571429;
+    min-height: 16.428571429px;
+    padding: 2px 8px 2px 0px;
+    overflow:hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+	font-family:"宋体";
+	font-size:14px;
+    cursor: default;
+}
+.ui-dialog-body {
+    padding: 8px 0;
+    text-align: center;
+}
+.ui-dialog-content {
+	padding:0 8px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+    text-align: left;
+	word-break:break-all;
+	word-wrap:break-word;
+}
+.ui-dialog-content i {
+    vertical-align: middle;
+}
+.ui-dialog-footer {
+	text-align:center;
+    padding: 0 10px 10px 10px;
+}
+.ui-dialog-statusbar {
+    /*float: left;
+    margin-right: 20px;*/
+    padding: 6px 0;
+    line-height: 1.428571429;
+    font-size: 14px;
+    color: #888;
+    white-space: nowrap;
+}
+.ui-dialog-statusbar label:hover {
+    color: #333;
+}
+.ui-dialog-statusbar input,
+.ui-dialog-statusbar .label {
+    vertical-align: middle;
+}
+.ui-dialog-button {
+    /*float: right;*/
+    white-space: nowrap;
+}
+.ui-dialog-footer button+button {
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+.ui-dialog-footer button {
+    /*width:auto;*/
+	min-width:120px;
+	max-width:120px;
+	overflow:hidden;
+    overflow:visible;
+    display: inline-block;
+    padding: 6px 12px;
+    _margin-left: 5px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+	-webkit-border-radius:4px;
+    -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
+
+.ui-dialog-footer button:focus {
+  /*outline: thin dotted #333;*/
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.ui-dialog-footer button:hover,
+.ui-dialog-footer button:focus {
+  color: #333333;
+  text-decoration: none;
+}
+
+.ui-dialog-footer button:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.ui-dialog-footer button[disabled] {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.ui-dialog-footer button {
+  color: #fff;
+  background-color: #ffffff;
+  /*border-color: #cccccc;*/
+  /*box-shadow:1px 1px 2px #999;*/
+}
+
+.ui-dialog-footer button:hover,
+.ui-dialog-footer button:focus,
+.ui-dialog-footer button:active {
+  color: #333333;
+  background-color: #ebebeb;
+  /*border-color: #adadad;*/
+}
+
+.ui-dialog-footer button:active{
+  background-image: none;
+}
+
+.ui-dialog-footer button[disabled],
+.ui-dialog-footer button[disabled]:hover,
+.ui-dialog-footer button[disabled]:focus,
+.ui-dialog-footer button[disabled]:active {
+  background-color: #ffffff;
+  /*border-color: #cccccc;*/
+}
+
+.ui-dialog-footer button.ui-dialog-autofocus {
+  /*color: #ffffff;
+  background-color: #428bca;
+  border-color: #357ebd;*/
+}
+
+.ui-dialog-footer button.ui-dialog-autofocus:hover,
+.ui-dialog-footer button.ui-dialog-autofocus:focus,
+.ui-dialog-footer button.ui-dialog-autofocus:active {
+  /*color: #ffffff;
+  background-color: #3276b1;
+  border-color: #285e8e;*/
+}
+
+.ui-dialog-footer button.ui-dialog-autofocus:active {
+  background-image: none;
+}
+/*确定按钮*/
+.ui-dialog-footer button.ui-btns-ok{
+	color:#fff;
+	background-color:#f60;
+}
+.ui-dialog-footer button.ui-btns-ok:hover,
+.ui-dialog-footer button.ui-btns-ok:focus{
+	background-color:#ee950a;
+}
+/*取消按钮*/
+.ui-dialog-footer button.ui-btns-cancel{
+	color:#fff;
+	background-color:#8c8c8c;
+}
+.ui-dialog-footer button.ui-btns-cancel:hover,
+.ui-dialog-footer button.ui-btns-cancel:focus,
+.ui-dialog-footer button.ui-btns-cancel:active{
+	background-color:#ee950a;
+}
+/*灰色按钮*/
+.ui-dialog-footer button.ui-btns-gray{
+	color:#fff;
+	background-color:#8c8c8c;
+}
+.ui-dialog-footer button.ui-btns-gray:hover,
+.ui-dialog-footer button.ui-btns-gray:focus,
+.ui-dialog-footer button.ui-btns-gray:active{
+	background-color:#ee950a;
+}
+/*橙色按钮*/
+.ui-dialog-footer button.ui-btns-orange{
+	color:#fff;
+	background-color:#f60;
+}
+.ui-dialog-footer button.ui-btns-orange:hover,
+.ui-dialog-footer button.ui-btns-orange:focus,
+.ui-dialog-footer button.ui-btns-orange:active{
+	background-color:#ee950a;
+}
+/*蓝色按钮*/
+.ui-dialog-footer button.ui-btns-blue{
+	color:#fff;
+	background-color:#2f6ceb;
+}
+.ui-dialog-footer button.ui-btns-blue:hover,
+.ui-dialog-footer button.ui-btns-blue:focus,
+.ui-dialog-footer button.ui-btns-blue:active{
+	background-color:#ee950a;
+}
+
+
+.ui-popup-top-left .ui-dialog,
+.ui-popup-top .ui-dialog,
+.ui-popup-top-right .ui-dialog {
+    top: -8px;
+}
+.ui-popup-bottom-left .ui-dialog,
+.ui-popup-bottom .ui-dialog,
+.ui-popup-bottom-right .ui-dialog {
+    top: 8px;
+}
+.ui-popup-left-top .ui-dialog,
+.ui-popup-left .ui-dialog,
+.ui-popup-left-bottom .ui-dialog {
+    left: -8px;
+}
+.ui-popup-right-top .ui-dialog,
+.ui-popup-right .ui-dialog,
+.ui-popup-right-bottom .ui-dialog {
+    left: 8px;
+}
+
+.ui-dialog-arrow-a,
+.ui-dialog-arrow-b {
+    position: absolute;
+    display: none;
+    width: 0;
+    height: 0;
+    overflow:hidden;
+    _color:#FF3FFF;
+    _filter:chroma(color=#FF3FFF);
+    border:8px dashed transparent;
+}
+.ui-popup-follow .ui-dialog-arrow-a,
+.ui-popup-follow .ui-dialog-arrow-b{
+    display: block;
+}
+.ui-popup-top-left .ui-dialog-arrow-a,
+.ui-popup-top .ui-dialog-arrow-a,
+.ui-popup-top-right .ui-dialog-arrow-a {
+    bottom: -16px;
+    border-top:8px solid #2f6ceb;
+}
+.ui-popup-top-left .ui-dialog-arrow-b,
+.ui-popup-top .ui-dialog-arrow-b,
+.ui-popup-top-right .ui-dialog-arrow-b {
+    bottom: -15px;
+    border-top:8px solid #fff;
+}
+.ui-popup-top-left .ui-dialog-arrow-a,
+.ui-popup-top-left .ui-dialog-arrow-b  {
+    left: 15px;
+}
+.ui-popup-top .ui-dialog-arrow-a,
+.ui-popup-top .ui-dialog-arrow-b  {
+    left: 50%;
+    margin-left: -8px;
+}
+.ui-popup-top-right .ui-dialog-arrow-a,
+.ui-popup-top-right .ui-dialog-arrow-b {
+    right: 15px;
+}
+.ui-popup-bottom-left .ui-dialog-arrow-a,
+.ui-popup-bottom .ui-dialog-arrow-a,
+.ui-popup-bottom-right .ui-dialog-arrow-a {
+    top: -16px;
+    border-bottom:8px solid #2f6ceb;
+}
+.ui-popup-bottom-left .ui-dialog-arrow-b,
+.ui-popup-bottom .ui-dialog-arrow-b,
+.ui-popup-bottom-right .ui-dialog-arrow-b {
+    top: -15px;
+    border-bottom:8px solid #fff;
+}
+.ui-popup-bottom-left .ui-dialog-arrow-a,
+.ui-popup-bottom-left .ui-dialog-arrow-b {
+    left: 15px;
+}
+.ui-popup-bottom .ui-dialog-arrow-a,
+.ui-popup-bottom .ui-dialog-arrow-b {
+    margin-left: -8px;
+    left: 50%;
+}
+.ui-popup-bottom-right .ui-dialog-arrow-a,
+.ui-popup-bottom-right .ui-dialog-arrow-b {
+    right: 15px;
+}
+.ui-popup-left-top .ui-dialog-arrow-a,
+.ui-popup-left .ui-dialog-arrow-a,
+.ui-popup-left-bottom .ui-dialog-arrow-a {
+    right: -16px;
+    border-left:8px solid #2f6ceb;
+}
+.ui-popup-left-top .ui-dialog-arrow-b,
+.ui-popup-left .ui-dialog-arrow-b,
+.ui-popup-left-bottom .ui-dialog-arrow-b {
+    right: -15px;
+    border-left:8px solid #fff;
+}
+.ui-popup-left-top .ui-dialog-arrow-a,
+.ui-popup-left-top .ui-dialog-arrow-b {
+    top: 15px;
+}
+.ui-popup-left .ui-dialog-arrow-a,
+.ui-popup-left .ui-dialog-arrow-b {
+    margin-top: -8px;
+    top: 50%;
+}
+.ui-popup-left-bottom .ui-dialog-arrow-a,
+.ui-popup-left-bottom .ui-dialog-arrow-b {
+    bottom: 15px;
+}
+.ui-popup-right-top .ui-dialog-arrow-a,
+.ui-popup-right .ui-dialog-arrow-a,
+.ui-popup-right-bottom .ui-dialog-arrow-a {
+    left: -16px;
+    border-right:8px solid #2f6ceb;
+}
+.ui-popup-right-top .ui-dialog-arrow-b,
+.ui-popup-right .ui-dialog-arrow-b,
+.ui-popup-right-bottom .ui-dialog-arrow-b {
+    left: -15px;
+    border-right:8px solid #fff;
+}
+.ui-popup-right-top .ui-dialog-arrow-a,
+.ui-popup-right-top .ui-dialog-arrow-b {
+    top: 15px;
+}
+.ui-popup-right .ui-dialog-arrow-a,
+.ui-popup-right .ui-dialog-arrow-b {
+    margin-top: -8px;
+    top: 50%;
+}
+.ui-popup-right-bottom .ui-dialog-arrow-a,
+.ui-popup-right-bottom .ui-dialog-arrow-b {
+    bottom: 15px;
+}
+
+
+@-webkit-keyframes ui-dialog-loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes ui-dialog-loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ui-dialog-loading {
+    vertical-align: middle;
+    position: relative;
+    display: block;
+    *zoom: 1;
+    *display: inline;
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    margin: -16px auto 0 auto;
+    font-size: 0;
+    text-indent: -999em;
+    color: #666;
+}
+.ui-dialog-loading {
+    width: 100%\9;
+    text-indent: 0\9;
+    line-height: 32px\9;
+    text-align: center\9;
+    font-size: 12px\9;
+}
+.ui-dialog-loading::after {
+    position: absolute;
+    content: '';
+    width: 3px;
+    height: 3px;
+    margin: 14.5px 0 0 14.5px;
+    border-radius: 100%;
+    box-shadow: 0 -10px 0 1px #ccc, 10px 0px #ccc, 0 10px #ccc, -10px 0 #ccc, -7px -7px 0 0.5px #ccc, 7px -7px 0 1.5px #ccc, 7px 7px #ccc, -7px 7px #ccc;
+    -webkit-transform: rotate(360deg);
+    -webkit-animation: ui-dialog-loading 1.5s infinite linear;
+    transform: rotate(360deg);
+    animation: ui-dialog-loading 1.5s infinite linear;
+    display: none\9;
+}
+
+/*  
+ * 这里是购物车底部样式  
+*/
+
+
+/*
+ * 购物车头部样式 
+*/
+.ui-comment-head{
+	min-height:95px;
+	border-bottom: 4px solid #2f6ceb;
+}
+
+.ui-comment-head-logo{
+	width:325px;
+	height:95px;	
+}
+.ui-comment-head-text{
+	position:relative;
+	width:400px;
+	min-height:65px;
+	margin-top:15px;
+	border-left:1px solid #ccc;
+}
+.ui-comment-head-text label{
+	position:absolute;
+	z-index:992;
+	left:25px;
+	bottom:0px;
+	font-size:20px;
+	font-weight:bold;
+	color:#2f6ceb;
+	font-family:"Microsoft Yahei";
+}
+.ui-comment-head-rNav{
+	position:relative;
+	width:380px;
+	min-height:65px;
+	margin-top:15px;
+	text-align:right;
+}
+.ui-comment-head-rNav p{
+	position:absolute;
+	right:0;
+	bottom:0px;
+	color:#333;
+	font-size:14px;
+	font-family:"Microsoft Yahei";
+}
+.ui-comment-head-rNav p a{
+	color:#333;
+}
+.ui-comment-head-rNav p a:hover{
+	text-decoration:underline;
+}
+
+/*
+ *  artDialog 弹窗通用框架样式 ================================
+ *  @author 这里不清楚是否线上有使用到，暂时屏蔽
+ *  @date   2015-03-24
+*/ 
+/*
+.ui-dialog {
+    *zoom:1;
+    _float: left;
+    padding:8px;
+    position: relative;
+    background-color: #FFF;
+    border: 1px solid #999;
+    border-radius: 4px;
+    outline: 0;
+    background-clip: padding-box;
+    font-family: "Microsoft Yahei", Helvetica, arial, sans-serif;
+    color: #333;
+    opacity: 0;
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: -webkit-transform .15s ease-in-out, opacity .15s ease-in-out;
+    transition: transform .15s ease-in-out, opacity .15s ease-in-out;
+}
+.ui-popup-show .ui-dialog {
+    opacity: 1; 
+    -webkit-transform: scale(1);
+    transform: scale(1);
+}
+.ui-popup-focus .ui-dialog {
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+}
+.ui-popup-modal .ui-dialog {
+    border: 0;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1), 0 0 256px rgba(255, 255, 255, .3);
+}
+.ui-dialog-grid {
+    width: auto;
+    margin: 0;
+    border: 0 none;
+    border-collapse:collapse;
+    border-spacing: 0;
+    background: transparent;
+}
+.ui-dialog-header,
+.ui-dialog-body,
+.ui-dialog-footer {
+    padding: 0;
+    border: 0 none;
+    background: transparent;
+}
+.ui-dialog-header {
+    padding:8px;
+    text-align:center;
+    color:#fff;
+    white-space: nowrap;
+    background-color:#2f6ceb;
+    border-top-left-radius:4px;
+    border-top-right-radius:4px;
+}
+.ui-dialog-close {
+    position: relative;
+    _position: absolute;
+    float: right;
+    top: 0px;
+    right: 0px;
+    height: 28px;
+    width:28px;
+    font-size: 24px;
+    font-weight:bold;
+    line-height: 28px;
+    text-align:center;
+    color: #2f6ceb;
+    cursor: pointer;
+    background: #a1bdf6;
+    border: 0;
+    border-radius:14px;
+}
+.ui-dialog-close:hover,
+.ui-dialog-close:focus {
+    color: #2f6ceb;
+    text-decoration: none;
+    cursor: pointer;
+    outline: 0;
+}
+.ui-dialog-title {
+    margin: 0;
+    line-height: 1.428571429;
+    min-height: 16.428571429px;
+    padding: 4px 8px 4px 0px;
+    overflow:hidden; 
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family:"宋体";
+    font-size:14px;
+    cursor: default;
+}
+.ui-dialog-body {
+    padding: 8px 0;
+    text-align: center;
+}
+.ui-dialog-content {
+    padding:0 8px;
+    display: inline-block;
+    position: relative;
+    vertical-align: middle;
+    *zoom: 1;
+    *display: inline;
+    text-align: left;
+    word-break:break-all;
+    word-wrap:break-word;
+}
+.ui-dialog-footer {
+    text-align:center;
+    padding: 0 10px 10px 10px;
+}
+.ui-dialog-statusbar {
+    float: left;
+    margin-right: 20px;
+    padding: 6px 0;
+    line-height: 1.428571429;
+    font-size: 14px;
+    color: #888;
+    white-space: nowrap;
+}
+.ui-dialog-statusbar label:hover {
+    color: #333;
+}
+.ui-dialog-statusbar input,
+.ui-dialog-statusbar .label {
+    vertical-align: middle;
+}
+.ui-dialog-button {
+    float: right;
+    white-space: nowrap;
+}
+.ui-dialog-footer button+button {
+    margin-bottom: 0;
+    margin-left: 10px;
+}
+.ui-dialog-footer button {
+    width:auto;
+    min-width:130px;
+    max-width:130px;
+    overflow:hidden;
+    overflow:visible;
+    display: inline-block;
+    padding: 6px 12px;
+    _margin-left: 5px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-border-radius:4px;
+    -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+       -o-user-select: none;
+          user-select: none;
+}
+
+.ui-dialog-footer button:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.ui-dialog-footer button:hover,
+.ui-dialog-footer button:focus {
+  color: #333333;
+  text-decoration: none;
+}
+
+.ui-dialog-footer button:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+          box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+}
+.ui-dialog-footer button[disabled] {
+  pointer-events: none;
+  cursor: not-allowed;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+          box-shadow: none;
+}
+
+.ui-dialog-footer button {
+  color: #fff;
+  background-color: #ffffff;
+  border-color: #cccccc;
+  box-shadow:1px 1px 2px #999;
+}
+
+.ui-dialog-footer button:hover,
+.ui-dialog-footer button:focus,
+.ui-dialog-footer button:active {
+  color: #333333;
+  background-color: #ebebeb;
+  border-color: #adadad;
+}
+
+.ui-dialog-footer button:active{
+  background-image: none;
+}
+
+.ui-dialog-footer button[disabled],
+.ui-dialog-footer button[disabled]:hover,
+.ui-dialog-footer button[disabled]:focus,
+.ui-dialog-footer button[disabled]:active {
+  background-color: #ffffff;
+  border-color: #cccccc;
+}
+
+.ui-dialog-footer button.ui-dialog-autofocus {
+  color: #ffffff;
+  background-color: #428bca;
+  border-color: #357ebd;
+}
+
+.ui-dialog-footer button.ui-dialog-autofocus:hover,
+.ui-dialog-footer button.ui-dialog-autofocus:focus,
+.ui-dialog-footer button.ui-dialog-autofocus:active {
+  color: #ffffff;
+  background-color: #3276b1;
+  border-color: #285e8e;
+}
+
+.ui-dialog-footer button.ui-dialog-autofocus:active {
+  background-image: none;
+}
+确定按钮
+.ui-dialog-footer button.ui-btns-ok{
+    color:#fff;
+    background-color:#f60;
+}
+.ui-dialog-footer button.ui-btns-ok:hover,
+.ui-dialog-footer button.ui-btns-ok:focus{
+    background-color:#ee950a;
+}
+取消按钮
+.ui-dialog-footer button.ui-btns-cancel{
+    color:#fff;
+    background-color:#8c8c8c;
+}
+.ui-dialog-footer button.ui-btns-cancel:hover,
+.ui-dialog-footer button.ui-btns-cancel:focus,
+.ui-dialog-footer button.ui-btns-cancel:active{
+    background-color:#ee950a;
+}
+灰色按钮
+.ui-dialog-footer button.ui-btns-gray{
+    color:#fff;
+    background-color:#8c8c8c;
+}
+.ui-dialog-footer button.ui-btns-gray:hover,
+.ui-dialog-footer button.ui-btns-gray:focus,
+.ui-dialog-footer button.ui-btns-gray:active{
+    background-color:#ee950a;
+}
+橙色按钮
+.ui-dialog-footer button.ui-btns-orange{
+    color:#fff;
+    background-color:#f60;
+}
+.ui-dialog-footer button.ui-btns-orange:hover,
+.ui-dialog-footer button.ui-btns-orange:focus,
+.ui-dialog-footer button.ui-btns-orange:active{
+    background-color:#ee950a;
+}
+蓝色按钮
+.ui-dialog-footer button.ui-btns-blue{
+    color:#fff;
+    background-color:#2f6ceb;
+}
+.ui-dialog-footer button.ui-btns-blue:hover,
+.ui-dialog-footer button.ui-btns-blue:focus,
+.ui-dialog-footer button.ui-btns-blue:active{
+    background-color:#ee950a;
+}
+
+
+.ui-popup-top-left .ui-dialog,
+.ui-popup-top .ui-dialog,
+.ui-popup-top-right .ui-dialog {
+    top: -8px;
+}
+.ui-popup-bottom-left .ui-dialog,
+.ui-popup-bottom .ui-dialog,
+.ui-popup-bottom-right .ui-dialog {
+    top: 8px;
+}
+.ui-popup-left-top .ui-dialog,
+.ui-popup-left .ui-dialog,
+.ui-popup-left-bottom .ui-dialog {
+    left: -8px;
+}
+.ui-popup-right-top .ui-dialog,
+.ui-popup-right .ui-dialog,
+.ui-popup-right-bottom .ui-dialog {
+    left: 8px;
+}
+
+.ui-dialog-arrow-a,
+.ui-dialog-arrow-b {
+    position: absolute;
+    display: none;
+    width: 0;
+    height: 0;
+    overflow:hidden;
+    _color:#FF3FFF;
+    _filter:chroma(color=#FF3FFF);
+    border:8px dashed transparent;
+}
+.ui-popup-follow .ui-dialog-arrow-a,
+.ui-popup-follow .ui-dialog-arrow-b{
+    display: block;
+}
+.ui-popup-top-left .ui-dialog-arrow-a,
+.ui-popup-top .ui-dialog-arrow-a,
+.ui-popup-top-right .ui-dialog-arrow-a {
+    bottom: -16px;
+    border-top:8px solid #7C7C7C;
+}
+.ui-popup-top-left .ui-dialog-arrow-b,
+.ui-popup-top .ui-dialog-arrow-b,
+.ui-popup-top-right .ui-dialog-arrow-b {
+    bottom: -15px;
+    border-top:8px solid #fff;
+}
+.ui-popup-top-left .ui-dialog-arrow-a,
+.ui-popup-top-left .ui-dialog-arrow-b  {
+    left: 15px;
+}
+.ui-popup-top .ui-dialog-arrow-a,
+.ui-popup-top .ui-dialog-arrow-b  {
+    left: 50%;
+    margin-left: -8px;
+}
+.ui-popup-top-right .ui-dialog-arrow-a,
+.ui-popup-top-right .ui-dialog-arrow-b {
+    right: 15px;
+}
+.ui-popup-bottom-left .ui-dialog-arrow-a,
+.ui-popup-bottom .ui-dialog-arrow-a,
+.ui-popup-bottom-right .ui-dialog-arrow-a {
+    top: -16px;
+    border-bottom:8px solid #7C7C7C;
+}
+.ui-popup-bottom-left .ui-dialog-arrow-b,
+.ui-popup-bottom .ui-dialog-arrow-b,
+.ui-popup-bottom-right .ui-dialog-arrow-b {
+    top: -15px;
+    border-bottom:8px solid #fff;
+}
+.ui-popup-bottom-left .ui-dialog-arrow-a,
+.ui-popup-bottom-left .ui-dialog-arrow-b {
+    left: 15px;
+}
+.ui-popup-bottom .ui-dialog-arrow-a,
+.ui-popup-bottom .ui-dialog-arrow-b {
+    margin-left: -8px;
+    left: 50%;
+}
+.ui-popup-bottom-right .ui-dialog-arrow-a,
+.ui-popup-bottom-right .ui-dialog-arrow-b {
+    right: 15px;
+}
+.ui-popup-left-top .ui-dialog-arrow-a,
+.ui-popup-left .ui-dialog-arrow-a,
+.ui-popup-left-bottom .ui-dialog-arrow-a {
+    right: -16px;
+    border-left:8px solid #7C7C7C;
+}
+.ui-popup-left-top .ui-dialog-arrow-b,
+.ui-popup-left .ui-dialog-arrow-b,
+.ui-popup-left-bottom .ui-dialog-arrow-b {
+    right: -15px;
+    border-left:8px solid #fff;
+}
+.ui-popup-left-top .ui-dialog-arrow-a,
+.ui-popup-left-top .ui-dialog-arrow-b {
+    top: 15px;
+}
+.ui-popup-left .ui-dialog-arrow-a,
+.ui-popup-left .ui-dialog-arrow-b {
+    margin-top: -8px;
+    top: 50%;
+}
+.ui-popup-left-bottom .ui-dialog-arrow-a,
+.ui-popup-left-bottom .ui-dialog-arrow-b {
+    bottom: 15px;
+}
+.ui-popup-right-top .ui-dialog-arrow-a,
+.ui-popup-right .ui-dialog-arrow-a,
+.ui-popup-right-bottom .ui-dialog-arrow-a {
+    left: -16px;
+    border-right:8px solid #7C7C7C;
+}
+.ui-popup-right-top .ui-dialog-arrow-b,
+.ui-popup-right .ui-dialog-arrow-b,
+.ui-popup-right-bottom .ui-dialog-arrow-b {
+    left: -15px;
+    border-right:8px solid #fff;
+}
+.ui-popup-right-top .ui-dialog-arrow-a,
+.ui-popup-right-top .ui-dialog-arrow-b {
+    top: 15px;
+}
+.ui-popup-right .ui-dialog-arrow-a,
+.ui-popup-right .ui-dialog-arrow-b {
+    margin-top: -8px;
+    top: 50%;
+}
+.ui-popup-right-bottom .ui-dialog-arrow-a,
+.ui-popup-right-bottom .ui-dialog-arrow-b {
+    bottom: 15px;
+}
+
+
+@-webkit-keyframes ui-dialog-loading {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+@keyframes ui-dialog-loading {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.ui-dialog-loading {
+    vertical-align: middle;
+    position: relative;
+    display: block;
+    *zoom: 1;
+    *display: inline;
+    overflow: hidden;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    margin: -16px auto 0 auto;
+    margin: 0 auto;
+    font-size: 0;
+    text-indent: -999em;
+    color: #666;
+}
+.ui-dialog-loading {
+    width: 100%\9;
+    text-indent: 0\9;
+    line-height: 32px\9;
+    text-align: center\9;
+    font-size: 12px\9;
+}
+.ui-dialog-loading::after {
+    position: absolute;
+    content: '';
+    width: 3px;
+    height: 3px;
+    margin: 14.5px 0 0 14.5px;
+    border-radius: 100%;
+    box-shadow: 0 -10px 0 1px #ccc, 10px 0px #ccc, 0 10px #ccc, -10px 0 #ccc, -7px -7px 0 0.5px #ccc, 7px -7px 0 1.5px #ccc, 7px 7px #ccc, -7px 7px #ccc;
+    -webkit-transform: rotate(360deg);
+    -webkit-animation: ui-dialog-loading 1.5s infinite linear;
+    transform: rotate(360deg);
+    animation: ui-dialog-loading 1.5s infinite linear;
+    display: none\9;
+}
+ */
+/*
+ * 右侧浮动导航
+*/
+.float-menu {
+	position:fixed;
+	z-index:9995;
+	right:0;
+	display:none;
+	width:100px;
+	height:500px;
+}
+.float-menu a {
+	display:inline-block;
+	background:url(../images/right-menu.png) no-repeat;
+}
+.float-menu a:hover{
+	text-decoration:none;
+	
+}
+.float-menu .float-menu-chat{
+	width:101px;
+	height:134px;
+	background-position:right top;
+}
+.float-menu .float-menu-qq{
+	width:101px;
+	height:132px;
+	background-position:right -135px;
+}
+.float-menu .float-menu-mobile{
+	position:relative;
+	z-index:9995;
+	width:101px;
+	height:149px;
+	background-position:right -268px;
+}
+.float-menu .float-menu-mobile .float-menu-qrcode{
+	position:absolute;
+	z-index:9994;
+	left:-84px;
+	top:0px;
+	display:none;
+	opacity:0;
+	filter:alpha(opacity=0);
+	width:185px;
+	height:149px;
+	overflow:hidden;
+	background:url(../images/right-menu.png) left -268px no-repeat;
+}
+.float-menu .float-menu-gotop{
+	width:101px;
+	height:81px;
+	background-position:right -429px;
+}
+
+
+/*
+ *  首页底部样式
+ *  此版本为 2014年12月做的临时首页的底部，与2015年3月份暂时不用
+*/
+/*底部保证*/
+.foot-ensure{
+	width:1190px;
+	height:80px;
+	margin-top:50px;
+	color:#fff;
+	font-size:18px;
+	background-color:#2f6ceb;
+}
+.foot-ensure li{
+	width:16.66666%;
+	float:left;
+	text-align:center;
+}
+.foot-ensure span,.foot-ensure label{
+	display:inline-block;
+	width:100%;
+}
+.foot-ensure span{
+	background:url(../images/index_bg_2014.png) no-repeat;
+}
+.foot-ensure .en-icon-1{
+	margin-top:15px;
+	width:42px;
+	height:23px;
+	background-position:-80px -385px;
+}
+.foot-ensure .en-icon-2{
+	margin-top:15px;
+	width:32px;
+	height:23px;
+	background-position:-126px -385px;
+}
+.foot-ensure .en-icon-3{
+	margin-top:10px;
+	width:29px;
+	height:29px;
+	background-position:-162px -385px;
+}
+.foot-ensure .en-icon-4{
+	margin-top:13px;
+	width:28px; 
+	height:25px;
+	background-position:-195px -385px;
+}
+.foot-ensure .en-icon-5{
+	margin-top:13px;
+	width:30px;
+	height:26px;
+	background-position:-80px -353px;
+}
+.foot-ensure .en-icon-6{
+	margin-top:12px;
+	width:27px;
+	height:26px;
+	background-position:-207px -353px;
+}
+/*底部帮助中心*/
+.foot-help{
+	height:105px;
+	margin-top:25px;
+}
+.help-list{
+	width:670px;
+	float:left;
+}
+.help-list .help-list-item{
+	width:117px;
+	height:105px;
+	overflow:hidden;
+	padding:0 0 0 17px;
+	float:left;
+}
+.help-list .list-item-list{
+}
+.list-item-list dt{
+	font-size:14px;
+	font-weight:bold;
+	color:#333;
+	padding-bottom:5px;
+}
+.list-item-list dt a{
+	color:#333;
+}
+.list-item-list dt a:hover{
+	color:#f60;
+	text-decoration:underline;
+}
+.list-item-list dd{
+	line-height:24px;
+}
+.list-item-list dd a{
+	color:#8c8c8c;
+}
+.list-item-list dd a:hover{
+	color:#f60;
+	text-decoration:underline;
+}
+/*底部服务信息*/
+.foot-service{
+	width:200px;
+	padding:0 0 0 20px;
+	margin-top:-5px;
+	float:left;
+	color:#8c8c8c;
+	font-size:14px;
+	line-height:24px; 
+}
+.foot-service p{
+	padding:0px;
+}
+.foot-service label{
+	font-size:22px;
+	font-weight:bold;
+	color:#f60;
+	font-family:"Microsoft Yahei",Arial;
+}
+/*底部二维码*/
+.foot-qrcode{
+	width:250px;
+	height:91px;
+	float:left;
+	margin-top:-5px;
+	overflow:hidden;
+	padding:5px 0 5px 30px;
+	border-left:1px solid #b4b4b4;
+}
+.foot-qrcode span{
+	display:inline-block;
+	float:left;
+}
+.foot-qrcode span.text{
+	padding:58px 0 0 5px;
+	color:#8c8c8c;
+}
+/*底部友情链接*/
+.foot-friend-link{
+	width:1186px;
+	border:2px dotted #f60;
+	border-radius:3px;
+}
+.foot-friend-link dt{
+	width:18px;
+	padding:5px 0 5px 5px;
+	font-size:16px;
+	color:#f60;
+	word-break:break-all;
+	word-wrap:break-word;
+	float:left;
+}
+.foot-friend-link dd{
+	width:1156px;
+	padding:5px 0 5px 0;
+	float:left;
+	line-height:26px;
+	text-align:center;
+}
+.foot-friend-link dd a{
+	color:#8c8c8c;
+	padding:0 5px;
+	text-decoration:none;
+}
+.foot-friend-link dd a:hover{
+	color:#f60;
+	text-decoration:underline;
+}
+.foot-friend-link dd span{
+	color:#b9d2ec;
+}
+/*底部版权*/
+.foot-copyright{
+	padding:10px 0;
+	line-height:22px;
+	color:#333;
+	text-align:center;
+}
+.foot-copyright .foot-copyright-text{
+	color:#333;
+}
+.foot-copyright .foot-icp{
+	color:#8c8c8c;
+}
+.foot-copyright .foot-icp a{
+	color:#8c8c8c;
+}
+.foot-copyright .foot-icp a:hover{
+	color:#8c8c8c;
+	text-decoration:underline;
+}
+/*底部图标*/
+.foot-icons{
+	text-align:center; 
+	vertical-align:middle;
+	height:50px;
+	line-height:50px;
+}
+.foot-icons a{
+	display:inline-block;
+	margin:0 5px;
+}
+.foot-icons .foot-icon-beian{
+	display:inline-block;
+	vertical-align:middle;
+}
+.foot-icons .foot-icon-gswj{
+	/*height:50px;*/
+	vertical-align:middle;
+}
+.foot-icons .foot-icon-conic{
+	/*height:50px;*/
+	vertical-align:middle;
+}
+.foot-icons .foot-icon-ceca{
+	/*height:44px;*/
+	vertical-align:middle;
+}
+/* 
+ * 金海马商城栅格系统
+ * @author : linyandi
+ * @date   : 2015-02-13 
+ */
+.kh-row-24 {
+  display: block;
+  width: 1200px;
+  margin: 0 auto;
+  padding-right: -10px;
+}
+.kh-col-1,
+.kh-col-2,
+.kh-col-3,
+.kh-col-4,
+.kh-col-5,
+.kh-col-6,
+.kh-col-7,
+.kh-col-8,
+.kh-col-9,
+.kh-col-10,
+.kh-col-11,
+.kh-col-12,
+.kh-col-13,
+.kh-col-14,
+.kh-col-15,
+.kh-col-16,
+.kh-col-17,
+.kh-col-18,
+.kh-col-19,
+.kh-col-20,
+.kh-col-21,
+.kh-col-22,
+.kh-col-23,
+.kh-col-24 {
+  margin: 0 5px;
+  float: left;
+}
+.kh-row-24 .kh-col-1 {
+  width: 40px;
+}
+.kh-row-24 .kh-col-2 {
+  width: 90px;
+}
+.kh-row-24 .kh-col-3 {
+  width: 140px;
+}
+.kh-row-24 .kh-col-4 {
+  width: 190px;
+}
+.kh-row-24 .kh-col-5 {
+  width: 240px;
+}
+.kh-row-24 .kh-col-6 {
+  width: 290px;
+}
+.kh-row-24 .kh-col-7 {
+  width: 340px;
+}
+.kh-row-24 .kh-col-8 {
+  width: 390px;
+}
+.kh-row-24 .kh-col-9 {
+  width: 440px;
+}
+.kh-row-24 .kh-col-10 {
+  width: 490px;
+}
+.kh-row-24 .kh-col-11 {
+  width: 540px;
+}
+.kh-row-24 .kh-col-12 {
+  width: 590px;
+}
+.kh-row-24 .kh-col-13 {
+  width: 640px;
+}
+.kh-row-24 .kh-col-14 {
+  width: 690px;
+}
+.kh-row-24 .kh-col-15 {
+  width: 740px;
+}
+.kh-row-24 .kh-col-16 {
+  width: 790px;
+}
+.kh-row-24 .kh-col-17 {
+  width: 840px;
+}
+.kh-row-24 .kh-col-18 {
+  width: 890px;
+}
+.kh-row-24 .kh-col-19 {
+  width: 940px;
+}
+.kh-row-24 .kh-col-20 {
+  width: 990px;
+}
+.kh-row-24 .kh-col-21 {
+  width: 1040px;
+}
+.kh-row-24 .kh-col-22 {
+  width: 1090px;
+}
+.kh-row-24 .kh-col-23 {
+  width: 1140px;
+}
+.kh-row-24 .kh-col-24 {
+  width: 1190px;
+}
+
+/* line 224, ../sass/layout/sprite.scss */
+.icon, .icon-m-search, .icon-s-small-fff, .icon-m-nav-l, .icon-m-nav-r, .icon-club-vip, .icon-member-safe, .icon-safe-green, .icon-safe-gray, .icon-radio-off, .icon-radio-on, .icon-order-pay, .icon-date-picker, .btns-130x30, .btns-130x30:hover, .btns-enable-67x20, .btns-enable-67x20:hover, .btns-disable-67x20, .btns-enable-80x30, .btns-enable-80x30:hover, .icon-face-smile-orange, .icon-face-frown-blue, .icon-face-frown-orange, .icon-face-sad-orange, .icon-prev-small-disable, .icon-prev-small-enable, .icon-next-small-disable, .icon-next-small-enable, .icon-phone-blue, .icon-phone-orange, .icon-o2o-blue, .icon-box-normal, .icon-box-checked, .icon-gray-left, .icon-gray-right, .icon-detail-delete, .icon-detail-chat, .icon-circle-blue, .icon-circle-gray, .icon-count-time, .icon-star-on, .icon-star-off, .icon-warn-small, .icon-tip-wrong, .icon-tip-ok, .icon-refund-delete, .icon-refund-find, .corner-tab-nav a .icon-c-nav-l, .corner-tab-nav a:hover .icon-c-nav-l, .corner-tab-nav a.cur .icon-c-nav-l, .corner-tab-nav a .icon-c-nav-r, .corner-tab-nav a:hover .icon-c-nav-r, .corner-tab-nav a.cur .icon-c-nav-r, .icon-cart-num, .icon-delete-8c8, .icon-delete-8c8:hover, .icon-delete-ccc, .icon-cart-ccc, .icon-cart-8c8, .icon-cart-8c8:hover, .icon-cart-f60, .icon-shopping-cart, .icon-step-on, .icon-step-off, .icon-step-point-on, .icon-step-point-off, .icon-cart-favorite-on, .icon-cart-favorite-off, .icon-modify-8c8, .icon-modify-8c8:hover, .icon-point-on, .icon-point-off, .icon-select-up-2f6, .icon-select-up-2f6:hover, .icon-hot-1, .icon-hot-2, .icon-hot-3, .icon-hot-4, .icon-hot-5, .icon-hot-6, .icon-hot-7, .icon-hot-8, .icon-hot-9, .icon-hot-10, .icon-level-0, .icon-level-1, .icon-level-2, .icon-level-3, .icon-level-4, .icon-help, .icon-point-right, .icon-nav-hot, .icon-point-down, .icon-point-down-333, .icon-focus-sina, .icon-share-email, .aside-menu-item .icon-aside-sofa, .aside-menu-item:hover .icon-aside-sofa, .aside-menu-item .icon-aside-table, .aside-menu-item:hover .icon-aside-table, .aside-menu-item .icon-aside-bed, .aside-menu-item:hover .icon-aside-bed, .aside-menu-item .icon-aside-study, .aside-menu-item:hover .icon-aside-study, .aside-menu-item .icon-aside-office, .aside-menu-item:hover .icon-aside-office, .aside-menu-item .icon-aside-baby, .aside-menu-item:hover .icon-aside-baby, .aside-menu-item .icon-aside-store, .aside-menu-item:hover .icon-aside-store, .icon-item-rebate, .icon-item-points-exchange, .icon-item-points-buy, .icon-chat-qq, .icon-address-close, .icon-select-down, .icon-select-down-small, .icon-float-qq, .icon-float-cart, .icon-float-wechat, .icon-float-feedback, .icon-float-top, .icon-item-service, .icon-item-rec-prev, .icon-item-rec-prev:hover, .icon-item-rec-next, .icon-item-rec-next:hover, .icon-item-rec-point, .icon-single-tip-f60, .icon-crown-f60, .icon-tip-right-blue, .icon-tip-right-green, .icon-tip-right-orange, .icon-privilege-1, .icon-privilege-2, .icon-privilege-3, .icon-privilege-4, .icon-privilege-5, .icon-privilege-6, .icon-privilege-7, .icon-privilege-8, .icon-privilege-9, .icon-points-tip-limit, .icon-label-333, .icon-label-f60, .icon-label-61b {
+  background-image: url("http://misc.jjcdn.com/p/images/sprite.png");
+}
+
+/* line 14, ../sass/layout/icons.scss */
+i {
+  display: inline-block;
+  vertical-align: middle;
+  font-style: normal;
+}
+
+/*=============== member header search form =================*/
+/* line 20, ../sass/layout/icons.scss */
+.icon-m-search {
+  background-position: -4px -515px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+}
+
+/* line 24, ../sass/layout/icons.scss */
+.icon-s-small-fff {
+  background-position: -4px -493px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+}
+
+/*================ member index nav icon ================*/
+/* line 29, ../sass/layout/icons.scss */
+.icon-m-nav-l {
+  background-position: -4px -1778px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 10px;
+  height: 20px;
+}
+
+/* line 32, ../sass/layout/icons.scss */
+.icon-m-nav-r {
+  background-position: -4px -1806px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 10px;
+  height: 20px;
+}
+
+/*================ member index icons ====================*/
+/* line 37, ../sass/layout/icons.scss */
+.icon-club-vip {
+  background-position: -4px -3122px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 37px;
+  height: 21px;
+}
+
+/* line 41, ../sass/layout/icons.scss */
+.icon-member-safe {
+  background-position: -4px -2114px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 20px;
+}
+
+/* line 45, ../sass/layout/icons.scss */
+.icon-safe-green {
+  background-position: -4px -191px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 120px;
+  height: 10px;
+}
+
+/* line 48, ../sass/layout/icons.scss */
+.icon-safe-gray {
+  background-position: -4px -209px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 120px;
+  height: 10px;
+}
+
+/*================ order-pay ==========================*/
+/* line 53, ../sass/layout/icons.scss */
+.icon-radio-off {
+  *display: block !important;
+  background-position: -4px -2282px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* line 58, ../sass/layout/icons.scss */
+.icon-radio-on {
+  *display: block !important;
+  background-position: -4px -2198px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+}
+
+/* line 64, ../sass/layout/icons.scss */
+.icon-order-pay {
+  vertical-align: middle;
+  background-position: -4px -4115px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 68, ../sass/layout/icons.scss */
+.icon-date-picker {
+  width: 19px;
+  height: 20px;
+  background-position: -4px -1834px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 19px;
+  height: 20px;
+}
+
+/*================ btns =======================*/
+/* btn 130x30 */
+/* line 76, ../sass/layout/icons.scss */
+.btns-130x30 {
+  *display: block !important;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  background-position: -4px -3849px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 130px;
+  height: 30px;
+}
+
+/* line 83, ../sass/layout/icons.scss */
+.btns-130x30:hover {
+  color: #fff;
+  background-position: -4px -3963px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 130px;
+  height: 30px;
+}
+
+/* btn 67x20 */
+/* line 88, ../sass/layout/icons.scss */
+.btns-enable-67x20 {
+  *display: block !important;
+  text-align: center;
+  line-height: 20px;
+  color: #fff;
+  background-position: -4px -2058px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 67px;
+  height: 20px;
+}
+
+/* line 95, ../sass/layout/icons.scss */
+.btns-enable-67x20:hover {
+  color: #fff;
+  background-position: -4px -2030px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 67px;
+  height: 20px;
+}
+
+/* line 100, ../sass/layout/icons.scss */
+.btns-disable-67x20 {
+  *display: block !important;
+  text-align: center;
+  line-height: 20px;
+  color: #fff;
+  cursor: default;
+  background-position: -4px -2002px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 67px;
+  height: 20px;
+}
+
+/* btn 80x30 */
+/* line 110, ../sass/layout/icons.scss */
+.btns-enable-80x30 {
+  *display: block !important;
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  background-position: -4px -3621px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+}
+
+/* line 117, ../sass/layout/icons.scss */
+.btns-enable-80x30:hover {
+  color: #fff;
+  background-position: -4px -3583px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 80px;
+  height: 30px;
+}
+
+/*============== face icons  =========================*/
+/* line 123, ../sass/layout/icons.scss */
+.icon-face-smile-orange {
+  background-position: -4px -5473px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+}
+
+/* line 127, ../sass/layout/icons.scss */
+.icon-face-frown-blue {
+  background-position: -4px -5405px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+}
+
+/* line 131, ../sass/layout/icons.scss */
+.icon-face-frown-orange {
+  background-position: -4px -5269px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+}
+
+/* line 135, ../sass/layout/icons.scss */
+.icon-face-sad-orange {
+  background-position: -4px -5337px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 60px;
+  height: 60px;
+}
+
+/*============== pages icons =====================*/
+/* line 141, ../sass/layout/icons.scss */
+.icon-prev-small-disable {
+  background-position: -4px -2674px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 144, ../sass/layout/icons.scss */
+.icon-prev-small-enable {
+  background-position: -4px -2646px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 148, ../sass/layout/icons.scss */
+.icon-next-small-disable {
+  background-position: -4px -3010px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 151, ../sass/layout/icons.scss */
+.icon-next-small-enable {
+  background-position: -4px -3038px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/*============== order list icons ===================*/
+/* line 156, ../sass/layout/icons.scss */
+.icon-phone-blue {
+  background-position: -4px -2870px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 159, ../sass/layout/icons.scss */
+.icon-phone-orange {
+  background-position: -4px -2842px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 163, ../sass/layout/icons.scss */
+.icon-o2o-blue {
+  background-position: -4px -3066px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 167, ../sass/layout/icons.scss */
+.icon-box-normal {
+  background-position: -4px -1078px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 171, ../sass/layout/icons.scss */
+.icon-box-checked {
+  background-position: -4px -1050px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/*============== select corner =======================*/
+/* line 177, ../sass/layout/icons.scss */
+.icon-gray-left {
+  background-position: -4px -4039px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 5px;
+  height: 30px;
+}
+
+/* line 180, ../sass/layout/icons.scss */
+.icon-gray-right {
+  background-position: -4px -4077px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 5px;
+  height: 30px;
+}
+
+/*============== order detail icons =======================*/
+/* line 185, ../sass/layout/icons.scss */
+.icon-detail-delete {
+  background-position: -4px -1330px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+}
+
+/* line 188, ../sass/layout/icons.scss */
+.icon-detail-chat {
+  background-position: -4px -877px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 16px;
+}
+
+/* line 192, ../sass/layout/icons.scss */
+.icon-circle-blue {
+  background-position: -4px -1470px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 195, ../sass/layout/icons.scss */
+.icon-circle-gray {
+  background-position: -4px -1498px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 199, ../sass/layout/icons.scss */
+.icon-count-time {
+  background-position: -4px -1134px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* ===================== order evaluate icons =================================*/
+/* line 204, ../sass/layout/icons.scss */
+.icon-star-on {
+  background-position: -4px -1638px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 207, ../sass/layout/icons.scss */
+.icon-star-off {
+  background-position: -4px -1666px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* ========================= aftersales apply icons ===========================*/
+/* line 211, ../sass/layout/icons.scss */
+.icon-warn-small {
+  margin: 0 5px;
+  background-position: -4px -449px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+}
+
+/* line 215, ../sass/layout/icons.scss */
+.icon-tip-wrong {
+  background-position: -4px -581px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+}
+
+/* line 218, ../sass/layout/icons.scss */
+.icon-tip-ok {
+  background-position: -4px -537px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+}
+
+/* line 221, ../sass/layout/icons.scss */
+.icon-refund-delete {
+  background-position: -4px -1414px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+}
+
+/* line 224, ../sass/layout/icons.scss */
+.icon-refund-find {
+  background-position: -4px -1526px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/*============= corner tab nav icon ===========================*/
+/* line 228, ../sass/layout/icons.scss */
+.corner-tab-nav a .icon-c-nav-l {
+  background-position: -4px -4419px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 30px;
+}
+
+/* line 231, ../sass/layout/icons.scss */
+.corner-tab-nav a:hover .icon-c-nav-l {
+  background-position: -4px -4381px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 30px;
+}
+
+/* line 234, ../sass/layout/icons.scss */
+.corner-tab-nav a.cur .icon-c-nav-l {
+  background-position: -4px -4381px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 30px;
+}
+
+/* line 238, ../sass/layout/icons.scss */
+.corner-tab-nav a .icon-c-nav-r {
+  background-position: -4px -4495px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 30px;
+}
+
+/* line 241, ../sass/layout/icons.scss */
+.corner-tab-nav a:hover .icon-c-nav-r {
+  background-position: -4px -4457px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 30px;
+}
+
+/* line 244, ../sass/layout/icons.scss */
+.corner-tab-nav a.cur .icon-c-nav-r {
+  background-position: -4px -4457px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 30px;
+}
+
+/* ================ delete icons && cart icons ======================*/
+/* line 249, ../sass/layout/icons.scss */
+.icon-delete-tpl, .icon-delete-8c8, .icon-delete-ccc {
+  vertical-align: middle;
+}
+
+/* line 252, ../sass/layout/icons.scss */
+.icon-cart-tpl, .icon-cart-ccc, .icon-cart-8c8, .icon-cart-f60 {
+  margin: 0 10px;
+  vertical-align: middle;
+}
+
+/* line 256, ../sass/layout/icons.scss */
+.icon-cart-num {
+  background-position: -4px -1024px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+}
+
+/* delete icons */
+/* line 260, ../sass/layout/icons.scss */
+.icon-delete-8c8 {
+  background-position: -4px -1330px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+}
+
+/* line 264, ../sass/layout/icons.scss */
+.icon-delete-8c8:hover {
+  background-position: -4px -1386px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+}
+
+/* line 268, ../sass/layout/icons.scss */
+.icon-delete-ccc {
+  background-position: -4px -1358px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+  cursor: default;
+}
+
+/* cart icons */
+/* line 275, ../sass/layout/icons.scss */
+.icon-cart-ccc {
+  background-position: -4px -2534px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  cursor: default;
+}
+
+/* line 281, ../sass/layout/icons.scss */
+.icon-cart-8c8 {
+  background-position: -4px -2506px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 285, ../sass/layout/icons.scss */
+.icon-cart-8c8:hover {
+  background-position: -4px -2562px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 289, ../sass/layout/icons.scss */
+.icon-cart-f60 {
+  background-position: -4px -2562px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* cart empty icons */
+/* line 295, ../sass/layout/icons.scss */
+.icon-shopping-cart {
+  background-position: -4px -5877px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 115px;
+  height: 93px;
+}
+
+/* cart step icons */
+/* line 299, ../sass/layout/icons.scss */
+.icon-step-on {
+  background-position: -4px -1582px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 302, ../sass/layout/icons.scss */
+.icon-step-off {
+  background-position: -4px -1610px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 305, ../sass/layout/icons.scss */
+.icon-step-point-on {
+  background-position: -4px -1274px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 20px;
+}
+
+/* line 308, ../sass/layout/icons.scss */
+.icon-step-point-off {
+  background-position: -4px -1554px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 20px;
+}
+
+/* line 311, ../sass/layout/icons.scss */
+.icon-cart-favorite-on {
+  background-position: -4px -2618px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+}
+
+/* line 314, ../sass/layout/icons.scss */
+.icon-cart-favorite-off {
+  background-position: -4px -2590px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 24px;
+  height: 20px;
+}
+
+/*==== person-address icons ==================*/
+/* modify icon */
+/* line 319, ../sass/layout/icons.scss */
+.icon-modify-8c8 {
+  background-position: -4px -2898px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 322, ../sass/layout/icons.scss */
+.icon-modify-8c8:hover {
+  background-position: -4px -2954px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 326, ../sass/layout/icons.scss */
+.icon-point-on {
+  background-position: -4px -2786px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 329, ../sass/layout/icons.scss */
+.icon-point-off {
+  background-position: -4px -2814px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/*======================== register ========================*/
+/* line 333, ../sass/layout/icons.scss */
+.icon-select-up-2f6 {
+  background-position: -4px -173px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+}
+
+/* line 336, ../sass/layout/icons.scss */
+.icon-select-up-2f6:hover {
+  background-position: -4px -227px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+}
+
+/*==================================== points center icons ================================*/
+/* line 340, ../sass/layout/icons.scss */
+.icon-hot-1 {
+  background-position: -4px -3509px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 343, ../sass/layout/icons.scss */
+.icon-hot-2 {
+  background-position: -4px -3435px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 346, ../sass/layout/icons.scss */
+.icon-hot-3 {
+  background-position: -4px -3398px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 349, ../sass/layout/icons.scss */
+.icon-hot-4 {
+  background-position: -4px -3361px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 352, ../sass/layout/icons.scss */
+.icon-hot-5 {
+  background-position: -4px -3546px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 355, ../sass/layout/icons.scss */
+.icon-hot-6 {
+  background-position: -4px -3287px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 358, ../sass/layout/icons.scss */
+.icon-hot-7 {
+  background-position: -4px -3250px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 361, ../sass/layout/icons.scss */
+.icon-hot-8 {
+  background-position: -4px -3213px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 364, ../sass/layout/icons.scss */
+.icon-hot-9 {
+  background-position: -4px -3324px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* line 367, ../sass/layout/icons.scss */
+.icon-hot-10 {
+  background-position: -4px -3472px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 29px;
+}
+
+/* club level icons */
+/* line 371, ../sass/layout/icons.scss */
+.icon-level-0 {
+  background-position: -4px -785px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 15px;
+}
+
+/* line 374, ../sass/layout/icons.scss */
+.icon-level-1 {
+  background-position: -4px -808px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 15px;
+}
+
+/* line 377, ../sass/layout/icons.scss */
+.icon-level-2 {
+  background-position: -4px -831px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 15px;
+}
+
+/* line 380, ../sass/layout/icons.scss */
+.icon-level-3 {
+  background-position: -4px -854px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 15px;
+}
+
+/* line 383, ../sass/layout/icons.scss */
+.icon-level-4 {
+  background-position: -4px -670px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 15px;
+}
+
+/* help icon */
+/* line 387, ../sass/layout/icons.scss */
+.icon-help {
+  background-position: -4px -1750px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* icon point-right*/
+/* line 391, ../sass/layout/icons.scss */
+.icon-point-right {
+  background-position: -4px -2702px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/*============ head nav icon ===============*/
+/* line 395, ../sass/layout/icons.scss */
+.icon-nav-hot {
+  background-position: -4px -999px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 26px;
+  height: 17px;
+}
+
+/* line 398, ../sass/layout/icons.scss */
+.icon-point-down {
+  background-position: -4px -2730px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 401, ../sass/layout/icons.scss */
+.icon-point-down-333 {
+  background-position: -4px -2758px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 405, ../sass/layout/icons.scss */
+.icon-focus-sina {
+  background-position: -4px -1694px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 60px;
+  height: 20px;
+}
+
+/* line 409, ../sass/layout/icons.scss */
+.icon-share-email {
+  background-position: -4px -4989px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+}
+
+/*================= head nav icons ===========================*/
+/* sofa */
+/* line 414, ../sass/layout/icons.scss */
+.aside-menu-item .icon-aside-sofa {
+  background-position: -4px -4799px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 417, ../sass/layout/icons.scss */
+.aside-menu-item:hover .icon-aside-sofa {
+  background-position: -4px -4761px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* table */
+/* line 421, ../sass/layout/icons.scss */
+.aside-menu-item .icon-aside-table {
+  background-position: -4px -4571px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 424, ../sass/layout/icons.scss */
+.aside-menu-item:hover .icon-aside-table {
+  background-position: -4px -4533px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* bed */
+/* line 428, ../sass/layout/icons.scss */
+.aside-menu-item .icon-aside-bed {
+  background-position: -4px -4267px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 431, ../sass/layout/icons.scss */
+.aside-menu-item:hover .icon-aside-bed {
+  background-position: -4px -4305px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* study */
+/* line 435, ../sass/layout/icons.scss */
+.aside-menu-item .icon-aside-study {
+  background-position: -4px -4647px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 438, ../sass/layout/icons.scss */
+.aside-menu-item:hover .icon-aside-study {
+  background-position: -4px -4609px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* office */
+/* line 442, ../sass/layout/icons.scss */
+.aside-menu-item .icon-aside-office {
+  background-position: -4px -4913px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 445, ../sass/layout/icons.scss */
+.aside-menu-item:hover .icon-aside-office {
+  background-position: -4px -4837px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* baby */
+/* line 449, ../sass/layout/icons.scss */
+.aside-menu-item .icon-aside-baby {
+  background-position: -4px -4191px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 452, ../sass/layout/icons.scss */
+.aside-menu-item:hover .icon-aside-baby {
+  background-position: -4px -4229px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* store */
+/* line 456, ../sass/layout/icons.scss */
+.aside-menu-item .icon-aside-store {
+  background-position: -4px -4723px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 459, ../sass/layout/icons.scss */
+.aside-menu-item:hover .icon-aside-store {
+  background-position: -4px -4685px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/*============= item icons ===========================*/
+/* line 463, ../sass/layout/icons.scss */
+.icon-item-rebate {
+  background-position: -4px -5789px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+/* line 466, ../sass/layout/icons.scss */
+.icon-item-points-exchange {
+  background-position: -4px -5621px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 60px;
+  height: 72px;
+}
+
+/* line 469, ../sass/layout/icons.scss */
+.icon-item-points-buy {
+  background-position: -4px -5541px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 60px;
+  height: 72px;
+}
+
+/* line 472, ../sass/layout/icons.scss */
+.icon-chat-qq {
+  background-position: -4px -901px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+/* line 475, ../sass/layout/icons.scss */
+.icon-address-close {
+  background-position: -4px -974px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 17px;
+  height: 17px;
+}
+
+/* line 478, ../sass/layout/icons.scss */
+.icon-select-down {
+  background-position: -4px -137px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 14px;
+  height: 10px;
+}
+
+/* line 481, ../sass/layout/icons.scss */
+.icon-select-down-small {
+  background-position: -4px -4px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 7px;
+  height: 5px;
+}
+
+/* float nav icons */
+/* line 485, ../sass/layout/icons.scss */
+.icon-float-qq {
+  background-position: -4px -5029px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 44px;
+  height: 40px;
+}
+
+/* line 488, ../sass/layout/icons.scss */
+.icon-float-cart {
+  background-position: -4px -5125px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 44px;
+  height: 40px;
+}
+
+/* line 491, ../sass/layout/icons.scss */
+.icon-float-wechat {
+  background-position: -4px -5221px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 44px;
+  height: 40px;
+}
+
+/* line 494, ../sass/layout/icons.scss */
+.icon-float-feedback {
+  background-position: -4px -5173px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 44px;
+  height: 40px;
+}
+
+/* line 497, ../sass/layout/icons.scss */
+.icon-float-top {
+  background-position: -4px -5077px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 44px;
+  height: 40px;
+}
+
+/* item service icons */
+/* line 501, ../sass/layout/icons.scss */
+.icon-item-service {
+  background-position: -4px -925px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+}
+
+/* item recomment list icons */
+/* line 505, ../sass/layout/icons.scss */
+.icon-item-rec-prev {
+  background-position: -4px -739px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+}
+
+/* line 508, ../sass/layout/icons.scss */
+.icon-item-rec-prev:hover {
+  background-position: -4px -762px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+}
+
+/* line 512, ../sass/layout/icons.scss */
+.icon-item-rec-next {
+  background-position: -4px -693px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+}
+
+/* line 515, ../sass/layout/icons.scss */
+.icon-item-rec-next:hover {
+  background-position: -4px -716px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 8px;
+  height: 15px;
+}
+
+/* line 518, ../sass/layout/icons.scss */
+.icon-item-rec-point {
+  background-position: -4px -3151px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 17px;
+  height: 21px;
+}
+
+/*  club index icons  */
+/* line 522, ../sass/layout/icons.scss */
+.icon-single-tip-f60 {
+  background-position: -4px -5701px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+
+/* line 525, ../sass/layout/icons.scss */
+.icon-crown-f60 {
+  background-position: -4px -1302px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* my wallet icons */
+/* line 529, ../sass/layout/icons.scss */
+.icon-tip-right-blue {
+  background-position: -4px -2394px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+/* line 532, ../sass/layout/icons.scss */
+.icon-tip-right-green {
+  background-position: -4px -2254px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+/* line 535, ../sass/layout/icons.scss */
+.icon-tip-right-orange {
+  background-position: -4px -2226px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 40px;
+  height: 20px;
+}
+
+/* member privilege icons */
+/* line 540, ../sass/layout/icons.scss */
+.icon-privilege-1 {
+  background-position: -4px -3925px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 543, ../sass/layout/icons.scss */
+.icon-privilege-2 {
+  background-position: -4px -3887px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 546, ../sass/layout/icons.scss */
+.icon-privilege-3 {
+  background-position: -4px -3811px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 549, ../sass/layout/icons.scss */
+.icon-privilege-4 {
+  background-position: -4px -3773px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 552, ../sass/layout/icons.scss */
+.icon-privilege-5 {
+  background-position: -4px -3735px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 555, ../sass/layout/icons.scss */
+.icon-privilege-6 {
+  background-position: -4px -3697px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 558, ../sass/layout/icons.scss */
+.icon-privilege-7 {
+  background-position: -4px -3659px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 561, ../sass/layout/icons.scss */
+.icon-privilege-8 {
+  background-position: -4px -4343px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* line 564, ../sass/layout/icons.scss */
+.icon-privilege-9 {
+  background-position: -4px -4001px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+}
+
+/* points index icons */
+/* line 568, ../sass/layout/icons.scss */
+.icon-points-tip-limit {
+  background-position: -4px -5978px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 97px;
+  height: 97px;
+}
+
+/* cart confirm icons */
+/* line 572, ../sass/layout/icons.scss */
+.icon-label-333 {
+  background-position: -4px -2310px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 575, ../sass/layout/icons.scss */
+.icon-label-f60 {
+  background-position: -4px -2366px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/* line 578, ../sass/layout/icons.scss */
+.icon-label-61b {
+  background-position: -4px -2338px;
+  background-repeat: no-repeat;
+  overflow: hidden;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+}
+
+/*
+ *  主站的面包屑样式 =======================================
+*/
+.main-location {
+	height: 40px;
+	line-height: 40px;
+	color: #8c8c8c;
+}
+.main-location a {
+	color: #8c8c8c;
+	vertical-align: inherit;
+}
+.main-location a:hover {
+	color: #f60;
+	text-decoration: none;
+}
+.main-location span {
+	vertical-align: inherit;
+	font-size: 16px;
+}
+.main-location label {
+	vertical-align: inherit;
+}
+/*
+ * 这里是首页头部的样式 
+*/
+/*-----顶部导航-----*/
+.top-bar {
+	width:100%;
+	min-width:1190px;
+	height:31px;
+	line-height:31px;
+	background-color: #fff;
+	border-bottom:1px solid #cbcbcb;
+	font-size:12px;
+	color:#000;
+}
+/*顶部资讯*/
+.top-article {
+	float:left;
+	width:230px;
+	height:21px;
+	padding:5px 0;
+}
+.top-article dt {
+	float:left;
+	width:66px;
+	height:21px;
+	line-height:21px;
+	text-align:center;
+	color:#fff;
+	background:url(../images/index_sprite.png) left top no-repeat;
+}
+.top-article-list {
+	float:left;
+	width:160px;
+	height:21px;
+	overflow:hidden;
+}
+.top-article-list ul{
+	overflow:hidden;
+}
+.top-article-list li{
+	line-height:21px;
+	padding-left:5px;
+}
+.top-article-list li a{
+	line-height:21px;
+	color:#000; 
+	text-decoration:none;
+}
+.top-article-list li a:hover {
+	color:#000;
+	text-decoration:underline;
+}
+/*热线电话*/
+.top-hot-line{
+	float:left;
+	padding-left:25px;
+	background:url(../images/index_sprite.png) left -24px no-repeat;
+}
+/*顶部右侧导航*/
+.top-nav {
+	display: inline-block;
+	float: right;
+	padding-left: 10px;
+	text-align: right;
+	color: #8C8C8C;
+}
+.top-nav a {
+	padding: 0 3px;
+	color: #8C8C8C;
+	height: 12px;
+	line-height: 12px;
+	text-decoration: none;
+	/*vertical-align: middle;*/
+}
+.top-nav a.top-nav-accout {
+	padding-left: 15px;
+	background: url(../images/icon_top_member.gif) left 3px no-repeat;
+}
+.top-nav a.top-nav-club {
+	padding-left: 24px;
+	background: url(../images/icon_top_vip.gif) left 3px no-repeat;
+}
+.top-nav a.top-nav-rebate {
+	padding-left: 16px;
+	background: url(../images/icon_top_rebate.gif) left 3px no-repeat;
+}
+
+.top-nav a:hover{
+	color: #f60;
+	text-decoration: none;
+}
+.top-nav a.icon-triangle{
+	padding-right:15px;
+	background:url(../images/index_sprite.png) 50px -56px no-repeat;
+}
+/*顶部登录状态*/
+.top-login-status{
+	float:right;
+	width:330px;
+	text-align:right;
+	color: #8C8C8C;
+}
+.top-login-status a{
+	color:#2f6ceb;
+	text-decoration:none;
+	margin: 0 0 0 5px;
+}
+.top-login-status a:hover{
+	color: #f60;
+	text-decoration:none;
+}
+/*=======================*/
+/*     header style
+/*======================*/
+header {
+	/* height:95px; */
+	overflow:hidden;
+}
+/*logo*/
+.logo {
+	width:360px;
+	height:96px;
+	overflow:hidden;
+}
+.logo .head-logo {
+	display: inline-block;
+	width: 140px;
+	height: 96px;
+	overflow: hidden;
+}
+.logo .head-logo-ad {
+	display: inline-block;
+	width: 200px;
+	height: 96px;
+	margin-left: 10px;
+	_margin-left: 5px;
+	*margin-left: 5px!important;
+	overflow: hidden;
+}
+/*search*/
+.head-search{
+	width:500px;
+	margin-left:30px;
+	_margin-left:15px;
+	padding-top: 25px;
+	float:left;
+}
+.head-search .head-search-form{
+	position:relative;
+	z-index:90;
+	margin-top:25px;
+	height:32px;
+}
+
+
+.head-search .head-search-btn{
+	position:relative;
+	z-index:90;
+	float:left;
+	display:inline-block;
+	width: 50px;
+	background-color:#f60;
+}
+.head-search .head-search-btn:hover{
+	color:#fff;
+	background-color:#ee950a;
+}
+/*热搜词*/
+.head-search .head-search-hot-key{
+	width:420px;
+	height:24px;
+	line-height:24px;
+	color:#aeaeae;
+	/* text-align:center; */
+}
+.head-search .head-search-hot-key a{
+	padding:0 2px;
+	color:#8c8c8c;
+	text-decoration:none;
+}
+.head-search .head-search-hot-key a:hover{
+	color:#f60;
+	/*text-decoration:underline;*/
+}
+.head-search .head-search-hot-key a.hot-key{
+	color:#f60;
+}
+/*=========================*/
+/*       导航
+/*=========================*/
+.head-nav{
+	width:100%;
+	min-width:1190px;
+	height:40px;
+	/*line-height:40px; */
+	/*background-color:#4674d3;*/
+	background-color: #2f6ceb;
+	color:#fff;
+}
+.head-nav .head-nav-list {
+	width: 1190px;
+	margin: 0 auto;
+}
+
+/* 
+ * 全部分类  设置两种规格的下拉菜单样式  ===========================================
+ * 
+*/
+/* 这是旧的窄的样式 */
+.aside-small {
+	width: 238px;
+}
+
+.head-nav-list .head-nav-all-category {
+	position: relative;
+	z-index: 9990;
+	float: left;
+	text-align: center;
+}
+.head-nav-list .head-nav-all-category a.all-cats-btn {
+	position: relative;
+	z-index: 990;
+	display: inline-block;
+	line-height:40px;
+	color: #a1bdf6;
+	font-size: 14px;
+}
+.head-nav-list .head-nav-all-category a.all-cats-btn:after {
+	position: absolute;
+	z-index: 991;
+	top: 18px;
+	right: -14px;
+	display: inline-block;
+	border-width: 6px;
+	border-style: solid;
+	border-color: #a1bdf6 transparent transparent  transparent;
+	content: "";
+}
+/*----------------- 所有分类下拉菜单 ----------------*/
+.aside-border-bottom {
+	border-bottom: 1px solid #2a2a2a;
+}
+.head-nav-all-category .main-aside-menu {
+	position: absolute;
+	z-index: 9991;
+	left: 0;
+	top: 40px;
+	width: 100%;
+	height: 480px;
+	background-color: #333;
+}
+.head-nav-all-category:hover .main-aside-menu {
+	display: block;
+}
+
+.head-nav-all-category .aside-menu-item {
+	position: relative;
+	z-index: 9993;
+	width: 100%;
+}
+/* 窄的 */
+.aside-small .main-aside-menu {
+	height: 380px;
+	color: #8c8c8c;
+}
+.aside-small .aside-menu-item {
+	padding: 13px 0 13px 0;
+}
+
+/* 图标区域 */
+.aside-menu-item .aside-icons {
+	display: table;
+	float: left;
+	width: 75px;
+	height: 45px;
+	line-height: 40px;
+	padding-top: 3px;
+	margin-left: 20px;
+	overflow: hidden;
+}
+.aside-menu-item .aside-icons div {
+	display: table-cell;
+	*diaplay: inline-block!important;
+}
+.aside-menu-item .aside-icons div i {
+	display: inline-block;
+	width: 30px;
+	height: 30px;
+	vertical-align: middle;
+}
+.aside-menu-item .aside-icons label {
+	display: inline-block;
+	width: 40px;
+	/*height: 36px;*/
+	overflow: hidden;
+	font-size: 14px;
+	line-height: 18px;
+	vertical-align: middle;
+}
+.aside-menu-item .aside-icons label a {
+	color: #ccc;
+	font-weight: bold;
+	text-decoration: none;
+}
+.aside-menu-item .aside-icons label a:hover {
+	color: #f60;
+}
+/* 热门关键字区域*/
+.aside-menu-item .aside-hots {
+	float: right;
+	width: 85px;
+	height: 48px;
+	margin-right: 15px;
+	/*padding-top: 5px;*/
+	overflow: hidden;
+	line-height: 24px;
+	text-align: left;
+}
+.aside-menu-item .aside-hots a {
+	color: #8c8c8c;
+	width: 37px;
+	overflow: hidden;
+	padding-right: 10px;
+}
+.aside-menu-item .aside-hots a:hover {
+	color: #f60;
+}
+/* 向右的指向文字 */
+.aside-menu-item .aside-point-right {
+	position: absolute;
+	z-index: 9994;
+	right: 5px;
+	top: 50%;
+	width: 10px;
+	height: 20px;
+	margin-top: -10px;
+	display: none;
+	color: #fff;
+	font-size: 14px;
+	font-weight: lighter;
+	font-family: Arial;
+}
+/* 左边菜单项鼠标hover 状态 */
+.aside-menu-item:hover {
+	color: #fff;
+}
+.aside-menu-item:hover .aside-icons label a {
+	color: #fff;
+}
+.aside-menu-item:hover .aside-icons label a:hover {
+	color: #f60;
+}
+.aside-menu-item:hover .aside-point-right {
+	display: inline-block;
+}
+.aside-menu-item:hover .aside-hots a {
+	color: #fff;
+}
+.aside-menu-item:hover .aside-hots a:hover {
+	color: #f60;
+}
+/* 子菜单 */
+.head-nav-all-category .aside-sub-menu {
+	position: absolute;
+	z-index: 9993;
+	left: 238px;
+	top: 0;
+	display: none;
+	width: 710px;
+	padding: 14px 19px;
+	border: 1px solid #b4b4b4;
+	background-color: #fff;
+}
+
+.aside-small .aside-sub-menu {
+	left: 238px;
+	height: 350px;
+}
+.aside-small .aside-item-1 .aside-sub-menu {
+	top: 0;
+}
+.aside-small .aside-item-2 .aside-sub-menu {
+	top: -75px;
+}
+.aside-small .aside-item-3 .aside-sub-menu {
+	top: -150px;
+}
+.aside-small .aside-item-4 .aside-sub-menu {
+	top: -225px;
+}
+.aside-small .aside-item-5 .aside-sub-menu {
+	top: -300px;
+}
+.aside-small .aside-item-6 .aside-sub-menu {
+	top: -360px;
+}
+.aside-small .aside-item-7 .aside-sub-menu {
+	top: -432px;
+}
+
+.aside-menu-item:hover .aside-sub-menu{
+	display: block;
+}
+/* 子菜单左边 */
+.aside-sub-menu .sub-menu-left {
+	width: 464px;
+/*	padding-right: 19px;
+	border-right: 1px solid #b4b4b4;*/
+}
+
+.aside-small .sub-menu-left {
+	height: 352px;
+}
+.aside-small .sub-menu-cats {
+	height: 190px;
+}
+
+.aside-sub-menu .sub-menu-ad {
+	height: 160px;
+	text-align: center;
+}
+.aside-sub-menu .sub-menu-ad a {
+	display: inline-block;
+	width: 390px;
+	height: 160px;
+	overflow: hidden;
+	text-align: center;
+	/*border: 1px solid #fff;*/
+}
+.aside-sub-menu .sub-menu-ad a:hover {
+	/*display: block;*/
+	/*border: 1px solid #333;*/
+}
+.aside-sub-menu .sub-menu-cats dl {
+	display: table;
+	text-align: left;
+	padding-bottom: 15px;
+}
+.aside-sub-menu .sub-menu-cats dl dt {
+	display: table-cell;
+	width: 65px;
+	color: #333;
+	line-height: 24px;
+}
+.aside-sub-menu .sub-menu-cats dl dt a {
+	color: #333;
+}
+.aside-sub-menu .sub-menu-cats dl dt a:hover {
+	color: #f60;
+}
+.aside-sub-menu .sub-menu-cats dl dd {
+	display: table-cell;
+	line-height: 24px;
+}
+.aside-sub-menu .sub-menu-cats dl dd span {
+	display: inline-block;
+	padding: 0 5px;
+	color: #8c8c8c;
+	vertical-align: inherit;
+}
+.aside-sub-menu .sub-menu-cats dl dd a {
+	color: #8c8c8c;
+	vertical-align: inherit;
+}
+.aside-sub-menu .sub-menu-cats dl dd a:hover {
+	color: #f60;
+}
+.aside-sub-menu .sub-menu-cats dl dd a.hot {
+	color: #f60;
+}
+.aside-sub-menu .sub-menu-cats dl dd a.hot:hover {
+	color: #f60;
+}
+/* 子菜单右边 */
+.aside-sub-menu .sub-menu-right {
+	width: 200px;
+	padding-left: 30px;
+}
+.aside-small .sub-hot-sale {
+	width: 190px;
+	height: 180px;
+	text-align: left;
+	/*padding-bottom: 30px;*/
+}
+.sub-hot-sale .hot-sale-item {
+	/*line-height: 20px;*/
+}
+.sub-hot-sale .hot-sale-item img{
+	display: inline-block;
+	width: 100%;
+	overflow: hidden;
+}
+.sub-hot-sale .hot-sale-item .hot-sale-title {
+	text-align: left;
+	color: #8c8c8c;
+	cursor: pointer;
+}
+.sub-hot-sale .hot-sale-item:hover .hot-sale-title {
+	color: #f60;
+}
+
+.sub-hot-sale .hot-sale-text {
+	display: block;
+	width: 100%;
+	/*height: 24px;*/
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
+	text-align: left;
+	/*line-height: 24px;*/
+	vertical-align: inherit;
+}
+.sub-hot-sale .hot-sale-text label {
+	display: inline-block;
+	padding: 0 3px;
+	margin-right: 6px;
+	color: #fff;
+	background-color: #2f6ceb;
+	text-align: center;
+}
+.sub-hot-sale .hot-sale-text span {
+	display: inline-block;
+	color: #f60;
+	font-weight: bold;
+	font-size: 16px;
+}
+/*----------------- 主导航 ------------------------- */
+.head-nav-list .head-nav-menu {
+	position: relative;
+	z-index: 990;
+	width: 80%;
+	float: left;
+}
+.head-nav-list .head-nav-menu:after {
+	display: block;
+	clear: both;
+	content: "";
+}
+.head-nav-list .head-nav-menu a.nav-item {
+	position:relative;
+	z-index:990;
+	float: left;
+	display:inline-block;
+	height: 40px;
+	padding: 0 15px;
+	line-height: 40px;
+	text-align:center;
+	font-size:14px;
+	color:#fff;
+}
+.head-nav-list .head-nav-menu a.nav-item:hover {
+	color: #fff;
+}
+
+.head-nav-list .head-nav-menu a.nav-item .hot{
+	display:inline-block;
+	*display:block!important;
+	position:absolute;
+	z-index:991;
+	top:-10px;
+	right:10px;
+	width:26px;
+	height:17px;
+	line-height: 12px;
+	font-family: "Microsoft Yahei","arial";
+	font-size: 10px;
+	font-style: normal;
+	color: #fff;
+	/*text-indent:-999px;
+	overflow:hidden;*/
+}
+.head-nav-list .head-nav-menu .icon-nav-triangle {
+	display: inline-block;
+	width: 0;
+	height: 0;
+	border-width: 5px;
+	border-style: solid;
+	border-color: #fff transparent transparent transparent;
+}
+.head-nav-list .head-nav-menu .head-nav-line {
+	position: absolute;
+	z-index: 992;
+	left: 0px;
+	bottom: 2px;
+	display: inline-block;
+	font-size: 0;
+	height: 0;
+	width: 60px;
+	border-bottom: 2px solid #fff;
+}
+.head-nav-list .head-nav-menu li.item {
+	position: relative;
+
+}
+.head-nav-list .head-nav-menu .nav-hot-menu {
+	position: absolute;
+	z-index: 99;
+	left: 0;
+	top: 40px;
+	display: none;
+	width: 748px;
+	height: 378px;
+	/*padding: 0 9px;*/
+	color: #333;
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+.head-nav-list .head-nav-menu li.item:hover .nav-hot-menu {
+	/*position: relative;*/
+	display: block;
+}
+
+.head-nav-list .head-nav-menu .nav-right-btn {
+	float: right;
+}
+.head-nav-list .head-nav-menu .nav-right-btn a {
+	display: inline-block;
+	height: 40px;
+	line-height: 40px;
+	padding: 0 28px;
+	color: #fff;
+	font-size: 14px;
+	background-color: #f60;
+}
+.head-nav-list .head-nav-menu .nav-right-btn a:hover {
+	background-color: #ee950a;
+}
+.nav-rebate-icon {
+	display: inline-block;
+	width: 20px;
+	height: 40px;
+	background: url("../images/index_sprite_2015.png") left top no-repeat;
+}
+
+/* nav-sub-menu */
+.nav-hot-menu .hd {
+	display: none;
+}
+.nav-hot-menu .bd ul {
+	width: 748px;
+	padding-top: 19px;
+}
+.nav-hot-menu .bd li {
+	float: left;
+	width: 190px;
+	height: 160px;
+	margin: 0 50px 19px 9px;
+}
+.nav-hot-menu .bd li a {
+	display: block;
+	width: 190px;
+	height: 160px;
+	padding: 0px;
+}
+.nav-hot-menu .next {
+	position: absolute;
+	/*display: none;*/
+	width: 20px;
+	height: 20px;
+	right: 20px;
+	top: 50%;
+	margin-top: -10px;
+	z-index: 1;
+	background: url("../images/index_sprite_2015.png") left -40px no-repeat;
+}
+.nav-hot-menu .next:hover {
+	background: url("../images/index_sprite_2015.png") left -60px no-repeat;
+}
+.nav-hot-menu .gray {
+	position: absolute;
+	/*display: none;*/
+	width: 20px;
+	height: 20px;
+	right: 20px;
+	top: 50%;
+	margin-top: -10px;
+	z-index: 1;
+	background: url("../images/index_sprite_2015.png") left -80px no-repeat;
+}
+/*===================================================
+ *
+ *    login dialog style
+ *    author : linyandi
+ *    date   : 2015-06-10
+ *
+ **==================================================*/
+.login-dialog {
+    position: relative;
+}
+/* marking */
+.login-dialog .login-dialog-mark {
+    position: absolute;
+    left: -8px;
+    top: -52px;
+    width: 416px;
+    height: 260px;
+    text-align: center;
+    -webkit-opacity: .75;
+    opacity: .75;
+    filter: alpha(opacity=75);
+    background-color: #000;
+}
+.login-dialog .login-dialog-mark .login-dialog-loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -16px 0 -16px 0;
+    display: block;
+    width: 32px;
+    height: 32px;
+    background: url("../images/loading-t.gif") left top no-repeat;
+}
+/* login form */
+.login-dialog .login-dialog-form {
+    padding-top: 16px;
+}
+.login-dialog-form .login-dialog-form-tr {
+    height: 32px;
+    color: #333;
+    text-align: center;
+}
+.login-dialog-form .login-dialog-form-tr input {
+    width: 178px;
+    height: 28px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    color: #b4b4b4;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+}
+.login-dialog-form .login-dialog-form-tr input:focus {
+    border: 1px solid #2f6ceb;
+    color: #333;
+}
+.login-dialog-form .login-dialog-form-tr input.error {
+    border: 1px solid #c13d23;
+}
+/* tip */
+.login-dialog-form .login-dialog-form-tip {
+    height: 20px;
+    padding-left: 100px;
+    color: #c13d23;
+    /*line-height: 20px;*/
+}
+.login-dialog-form .login-dialog-form-tip i {
+    vertical-align: middle;
+}
+/* btn */
+.login-dialog-submit-btn {
+    display: inline-block;
+    width: 120px;
+    padding: 7px 0;
+    color: #fff;
+    text-align: center;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    background-color: #f60;
+}
+.login-dialog-submit-btn:hover {
+    background-color: #ee950a;
+}
+
+/* statusbar */
+.login-dialog-subbar {
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: #8c8c8c;
+    text-align: center;
+}
+.login-dialog-subbar a {
+    color: #f60;
+    text-decoration: underline;
+}
+.login-dialog-subbar a:hover {
+    color: #ee950a;
+    text-decoration: none;
+}
+.ui-dialog-statusbar {
+    font-size: 12px;
+    color: #8c8c8c;
+    text-align: center;
+}
+.ui-dialog-statusbar a {
+    color: #f60;
+    text-decoration: underline;
+}
+.ui-dialog-statusbar a:hover {
+    color: #ee950a;
+    text-decoration: none;
+}
+/* define default color */
+/*
+ * my kinhom aside menu style 
+*/
+/* line 648, icons/*.png */
+.icons-sprite, .member-aside-icons .icon-customer, .member-aside-item a:hover .icon-customer, .member-aside .item-on .icon-customer, .member-aside-item .item-on a:hover .icon-customer, .member-aside-icons .icon-order, .member-aside-item a:hover .icon-order, .member-aside .item-on .icon-order, .member-aside-item .item-on a:hover .icon-order, .member-aside-icons .icon-coupon, .member-aside-item a:hover .icon-coupon, .member-aside .item-on .icon-coupon, .member-aside-item .item-on a:hover .icon-coupon, .member-aside-icons .icon-favorite, .member-aside-item a:hover .icon-favorite, .member-aside .item-on .icon-favorite, .member-aside-item .item-on a:hover .icon-favorite, .member-aside-icons .icon-service, .member-aside-item a:hover .icon-service, .member-aside .item-on .icon-service, .member-aside-item .item-on a:hover .icon-service, .member-aside-icons .icon-person, .member-aside-item a:hover .icon-person, .member-aside .item-on .icon-person, .member-aside-item .item-on a:hover .icon-person, .member-aside-icons .icon-config, .member-aside-item a:hover .icon-config, .member-aside .item-on .icon-config, .member-aside-item .item-on a:hover .icon-config {
+  background-image: url('../images/icons-sf0d5f16c31.png');
+  background-repeat: no-repeat;
+}
+
+/* line 13, ../../sass/member-aside.scss */
+.member-aside {
+  background-color: #333;
+}
+
+/* member aside info */
+/* line 18, ../../sass/member-aside.scss */
+.member-aside .member-aside-info {
+  padding: 30px;
+  over-flow: hidden;
+  color: #fff;
+  font-size: 14px;
+  text-align: center;
+  background-color: #61bbe0;
+}
+
+/* line 27, ../../sass/member-aside.scss */
+.member-aside .member-aside-info a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* line 32, ../../sass/member-aside.scss */
+.member-aside .member-aside-info a:hover {
+  color: #f60;
+}
+
+/* member aside menu */
+/* line 37, ../../sass/member-aside.scss */
+.member-aside-item {
+  height: 49px;
+  border-bottom: 1px dashed #545454;
+  background-color: #333;
+}
+
+/* line 42, ../../sass/member-aside.scss */
+.member-aside-item span {
+  display: inline-block;
+  width: 180px;
+  height: 49px;
+  line-height: 49px;
+  border-left: 10px solid #333;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* line 52, ../../sass/member-aside.scss */
+.member-aside-item span i {
+  vertical-align: middle;
+}
+
+/* line 55, ../../sass/member-aside.scss */
+.member-aside-item span label {
+  vertical-align: middle;
+}
+
+/* line 59, ../../sass/member-aside.scss */
+.member-aside-item a {
+  display: inline-block;
+  width: 180px;
+  height: 49px;
+  line-height: 49px;
+  border-left: 10px solid #333;
+  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  vertical-align: middle;
+}
+
+/* line 70, ../../sass/member-aside.scss */
+.member-aside-item a:hover {
+  border-left: 10px solid #f60;
+}
+
+/* line 73, ../../sass/member-aside.scss */
+.member-aside-item a i {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/* line 77, ../../sass/member-aside.scss */
+.member-aside-item a label {
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+/* member aside icons */
+/* line 83, ../../sass/member-aside.scss */
+.member-aside-icons .m-icon {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 0 5px;
+  font-size: 0;
+}
+
+/* icon-customer */
+/* line 91, ../../sass/member-aside.scss */
+.member-aside-icons .icon-customer {
+  background-position: 0 -1417px;
+}
+
+/* line 94, ../../sass/member-aside.scss */
+.member-aside-item a:hover .icon-customer {
+  background-position: 0 -1397px;
+}
+
+/* line 98, ../../sass/member-aside.scss */
+.member-aside .item-on .icon-customer {
+  background-position: 0 -1397px;
+}
+
+/* line 101, ../../sass/member-aside.scss */
+.member-aside .item-on a {
+  border-left: 10px solid #f60;
+}
+
+/* line 104, ../../sass/member-aside.scss */
+.member-aside-item .item-on a:hover .icon-customer {
+  background-position: 0 -1397px;
+}
+
+/* icon-order */
+/* line 109, ../../sass/member-aside.scss */
+.member-aside-icons .icon-order {
+  background-position: 0 -1377px;
+}
+
+/* line 112, ../../sass/member-aside.scss */
+.member-aside-item a:hover .icon-order {
+  background-position: 0 -1357px;
+}
+
+/* line 116, ../../sass/member-aside.scss */
+.member-aside .item-on .icon-order {
+  background-position: 0 -1357px;
+}
+
+/* line 119, ../../sass/member-aside.scss */
+.member-aside .item-on a {
+  border-left: 10px solid #f60;
+}
+
+/* line 122, ../../sass/member-aside.scss */
+.member-aside-item .item-on a:hover .icon-order {
+  background-position: 0 -1357px;
+}
+
+/* icon-coupon */
+/* line 127, ../../sass/member-aside.scss */
+.member-aside-icons .icon-coupon {
+  background-position: 0 -1297px;
+}
+
+/* line 130, ../../sass/member-aside.scss */
+.member-aside-item a:hover .icon-coupon {
+  background-position: 0 -1277px;
+}
+
+/* line 134, ../../sass/member-aside.scss */
+.member-aside .item-on .icon-coupon {
+  background-position: 0 -1277px;
+}
+
+/* line 137, ../../sass/member-aside.scss */
+.member-aside .item-on a {
+  border-left: 10px solid #f60;
+}
+
+/* line 140, ../../sass/member-aside.scss */
+.member-aside-item .item-on a:hover .icon-coupon {
+  background-position: 0 -1277px;
+}
+
+/* icon-favorite */
+/* line 145, ../../sass/member-aside.scss */
+.member-aside-icons .icon-favorite {
+  background-position: 0 -1337px;
+}
+
+/* line 148, ../../sass/member-aside.scss */
+.member-aside-item a:hover .icon-favorite {
+  background-position: 0 -1317px;
+}
+
+/* line 152, ../../sass/member-aside.scss */
+.member-aside .item-on .icon-favorite {
+  background-position: 0 -1317px;
+}
+
+/* line 155, ../../sass/member-aside.scss */
+.member-aside .item-on a {
+  border-left: 10px solid #f60;
+}
+
+/* line 158, ../../sass/member-aside.scss */
+.member-aside-item .item-on a:hover .icon-favorite {
+  background-position: 0 -1317px;
+}
+
+/* icon-service */
+/* line 163, ../../sass/member-aside.scss */
+.member-aside-icons .icon-service {
+  background-position: 0 -1457px;
+}
+
+/* line 166, ../../sass/member-aside.scss */
+.member-aside-item a:hover .icon-service {
+  background-position: 0 -1437px;
+}
+
+/* line 170, ../../sass/member-aside.scss */
+.member-aside .item-on .icon-service {
+  background-position: 0 -1437px;
+}
+
+/* line 173, ../../sass/member-aside.scss */
+.member-aside .item-on a {
+  border-left: 10px solid #f60;
+}
+
+/* line 176, ../../sass/member-aside.scss */
+.member-aside-item .item-on a:hover .icon-service {
+  background-position: 0 -1437px;
+}
+
+/* icon-person */
+/* line 181, ../../sass/member-aside.scss */
+.member-aside-icons .icon-person {
+  background-position: 0 -1417px;
+}
+
+/* line 185, ../../sass/member-aside.scss */
+.member-aside-item a:hover .icon-person {
+  background-position: 0 -1397px;
+}
+
+/* line 189, ../../sass/member-aside.scss */
+.member-aside .item-on .icon-person {
+  background-position: 0 -1397px;
+}
+
+/* line 193, ../../sass/member-aside.scss */
+.member-aside .item-on a {
+  border-left: 10px solid #f60;
+}
+
+/* line 197, ../../sass/member-aside.scss */
+.member-aside-item .item-on a:hover .icon-person {
+  background-position: 0 -1397px;
+}
+
+/* icon-config */
+/* line 202, ../../sass/member-aside.scss */
+.member-aside-icons .icon-config {
+  background-position: 0 -1257px;
+}
+
+/* line 206, ../../sass/member-aside.scss */
+.member-aside-item a:hover .icon-config {
+  background-position: 0 -1237px;
+}
+
+/* line 210, ../../sass/member-aside.scss */
+.member-aside .item-on .icon-config {
+  background-position: 0 -1237px;
+}
+
+/* line 214, ../../sass/member-aside.scss */
+.member-aside .item-on a {
+  border-left: 10px solid #f60;
+}
+
+/* line 218, ../../sass/member-aside.scss */
+.member-aside-item .item-on a:hover .icon-config {
+  background-position: 0 -1237px;
+}
+
+/* aside sub menu style */
+/* line 223, ../../sass/member-aside.scss */
+.member-aside-list {
+  color: #fff;
+  border-bottom: 1px dashed #545454;
+}
+
+/* line 228, ../../sass/member-aside.scss */
+.member-aside-list a {
+  display: inline-block;
+  width: 180px;
+  height: 29px;
+  line-height: 29px;
+  color: #fff;
+  text-decoration: none;
+  text-indent: 30px;
+  border-left: 10px solid #333;
+}
+
+/* line 239, ../../sass/member-aside.scss */
+.member-aside-list a:hover {
+  color: #f60;
+  border-left: 10px solid #f60;
+  text-decoration: none;
+}
+
+/* a onfocus */
+/* line 246, ../../sass/member-aside.scss */
+.member-aside-list a.on {
+  color: #f60;
+  border-color: #f60;
+}
+
+/* line 251, ../../sass/member-aside.scss */
+.member-aside-list a.on:hover {
+  color: #f60;
+  border-color: #f60;
+}
+
+/*
+ * member center foot style
+ */
+.member-foot {
+	width: 100%;
+	min-width: 1190px;
+	margin-top: 50px;
+	color: #8c8c8c;
+	text-align: center;
+	background-color:#333;
+}
+
+.member-foot a {
+	color: #8c8c8c;
+	font-size: 12px;
+}
+.member-foot a:hover {
+	color: #f60;
+	text-decoration: none;
+}
+/* foot nav */
+.member-foot-nav {
+	padding: 15px 0 5px 0;
+	color: #8c8c8c;
+	text-align: center;
+}
+/* copy right */
+.member-foot-copyright {
+	padding:0 0 10px 0;
+}
+/* foot safe icons */
+
+.member-foot-safe {
+	padding: 15px 0 30px 0;
+}
+/*
+ * member center comment head style
+ * all member page use this ,this is concat to css/comment.css
+ */
+/* header */
+.member-header {
+	width: 100%;
+	min-width: 1190px;
+	min-height: 96px;
+	max-height: 96px;
+	border-bottom: 4px solid #2f6ceb;
+	background-color: #fff;
+}
+.member-header .member-logo {
+	display:inline-block;
+	width: 360px;
+}
+.member-header .member-logo-ad {
+	margin-left: 10px;
+}
+
+.member-header .member-header-title {
+	position: relative;
+	z-index:999;
+	height: 65px;
+	margin:15px 0 0 0;
+	border-left: 1px solid #ccc;
+	color: #2f6ceb;
+	font-size:20px;
+	text-indent:10px;
+}
+.member-header .member-header-title span {
+	position:absolute;
+	z-index: 991;
+	bottom: 0;
+	left:0;
+	display:inline-block;
+}
+/* top search */
+.member-header-search {
+	position: absolute;
+	z-index:990;
+	right: 0;
+	top:35px;
+}
+/*  通用会员系统顶部导航样式 */
+/* member nav style */
+.member-nav {
+	padding: 14px 0;
+	border-bottom: 1px solid #ccc;
+}
+/* normal nav */
+.member-nav a {
+	display: inline-block;
+	height: 20px;
+	overflow:hidden;
+	margin: 0 10px;
+	color: #333;
+	font-size:14px;
+	font-weight:bold; 
+	line-height: 20px;
+}
+.member-nav a i {
+	display:inline-block;
+	width: 10px;
+	height: 20px;
+	float: left;
+	overflow:hidden;
+	cursor: pointer;
+	visibility: hidden;
+}
+.member-nav a label {
+	display:inline-block;
+	float: left;
+	text-align: center;
+	cursor: pointer;
+}
+.member-nav a span {
+	display:inline-block;
+	float: left;
+	text-align: center;
+	cursor: pointer;
+}
+/* normal nav hover */
+.member-nav a:hover {
+	color:#fff;
+}
+.member-nav a:hover i {
+	visibility: visible;
+}
+.member-nav a:hover label {
+	background-color: #414141;
+}
+/* nav cur */
+.member-nav a.cur i {
+	visibility: visible;
+}
+.member-nav a.cur label {
+	background-color: #414141;
+	color: #fff;
+}
+/* 
+ * member-ui system 
+ */
+
+/*========================== 下拉菜单样式，会员系统通用 =====================*/
+.select-gray {
+	position: relative;
+	/*z-index: 99990;*/
+	/*display: inline;*/
+	margin: 0 10px;
+}
+/* 中间文字 */
+.select-gray .select-option {
+	height: 28px;
+	padding-right: 20px; 
+	line-height: 28px;
+	text-indent: 5px;
+	border-top: 1px solid #b4b4b4;
+	border-bottom: 1px solid #b4b4b4;
+	cursor: pointer;
+}
+/* 下三角按钮 */
+.select-gray .select-btn {
+	position: absolute;
+	z-index: 991;
+	right: 5px;
+	top: 4px;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	vertical-align: middle;
+}
+.select-gray .select-btn .triangle-down {
+	display: inline-block;
+	border-width: 5px 5px 0 5px;
+	border-style: solid solid solid solid;
+	border-color: #333 transparent transparent transparent;
+}
+/* 两边圆角 */
+.select-gray .select-corner {
+	display: block;
+	width: 5px;
+	height: 30px;
+	float: left;
+}
+/* 中间label */
+.select-gray .select-option {
+	display: block;
+	float:left;
+}
+/* 下拉列表 */
+.select-gray ul {
+	position: absolute;
+	z-index: 992;
+	left: 0;
+	top: 32px;
+	display: none;
+	border: 1px solid #b4b4b4;
+	background-color: #fff;
+}
+.select-gray ul li {
+	display:inline;
+}
+.select-gray ul li a {
+	display: block;
+	min-height: 30px;
+	padding: 0 10px;
+	/*overflow: hidden;*/
+	line-height: 30px;
+	color: #333;
+	text-align: center;
+	border-bottom: 1px dotted #ccc;
+}
+.select-gray ul li a:hover {
+	background-color: #ccc;
+}
+
+/*======================== 搜索框样式， 会员系统通用 =============================*/
+/* member header search */
+.search-bar {
+	position: relative;
+	z-index: 990;
+	display: inline-block;
+	height: 30px;
+	border: 1px solid #b4b4b4;
+	vertical-align: middle;
+}
+
+.search-bar .search-keyword {	
+	position: relative;
+	z-index:992;
+	display: block;
+	float: left;
+	height: 30px;
+	line-height: 30px\9;
+	padding: 0 10px;
+	color: #333;
+	background: none;
+	vertical-align: middle;
+}
+/* 内页搜索按钮 */
+.search-bar .seach-btn {
+	display: inline-block;
+	float: left;
+	width: 30px;
+	height: 14px;
+	padding: 7px 0;
+	overflow: hidden;
+	text-align: center;
+}
+.search-bar .seach-btn i{
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	cursor: pointer;
+}
+/* 三大页搜索按钮 */
+.search-bar .seach-btn-big {
+	position: absolute;
+	z-index: 991;
+	right: -41px;
+	top: -1px;
+	display: inline-block;
+	float: left;
+	width: 40px;
+	height: 32px;
+	line-height: 32px;
+	font-size: 14px;
+	overflow: hidden;
+	color: #fff;
+	text-align: center;
+	background-color: #f60;
+}
+.search-bar .seach-btn-big:hover {
+	background-color: #ee950a;
+}
+.search-bar .seach-btn-big i {
+	width: 14px;
+	height: 14px;
+	cursor: pointer;
+}
+
+.search-bar .hot-keyword-tip {
+	position: absolute;
+	z-index: 991;
+	left: 10px;
+	top: 0px;
+	display: block;
+	height: 30px;
+	line-height: 30px;
+	color:#b4b4b4;
+	cursor: text;
+}
+/*========================= 分页样式 ================================*/
+/* 小字分页 */
+.pages-small {
+	padding: 10px 0;
+}
+.pages-small span,
+.pages-small a,
+.pages-small input {
+	vertical-align: middle;
+}
+/* 页码跳转样式 */
+.pages-small .go-page {
+	padding: 0 8px;
+	color: #8c8c8c;
+}
+.pages-small .go-page input {
+	width: 30px;
+	height: 18px;
+	border: 1px solid #ccc;
+	line-height: 18px;
+	text-align: center;
+	color: #333;
+}
+/* 当前页码样式 */
+.pages-small .page-cur {
+	padding: 0 5px;
+	font-size: 14px;
+	color: #61bbe0;
+}
+.pages-small .page-cur:hover {
+	color: #61bbe0;
+}
+/* 默认页码样式 */
+.pages-small .page-nor {
+	padding: 0 5px;
+	font-size: 14px;
+	color: #333;
+}
+.pages-small .page-nor:hover {
+	color: #f60;
+}
+/* 确定按钮 */
+.pages-small .page-btn {
+	display: inline-block;
+	width: 40px;
+	height: 20px;
+	text-align: center;
+	line-height: 20px;
+	color: #fff;
+	font-size: 12px;
+	background-color: #333;
+	-webkit-border-radius: 2px;
+	border-radius: 2px;
+}
+.pages-small .page-btn:hover {
+	color: #fff;
+}
+/*====================== 通用倒计时样式 ===========================*/
+.rest-time {
+	display: inline-block;
+	padding: 0 10px;
+	vertical-align: middle;
+	color: #8c8c8c;
+}
+.rest-time span,
+.rest-time i,
+.rest-time label {
+	vertical-align: middle;
+}
+/* jQuery Countdown styles 2.0.0. */
+.is-countdown {
+	display: inline-block;
+	/*height: 24px;*/
+	vertical-align: middle;
+}
+.is-countdown span {
+	display: inline-block; 
+	vertical-align: middle;
+}
+.countdown-rtl {
+	direction: rtl;
+}
+.countdown-holding span {
+	color: #333;
+}
+.countdown-row {
+	display: inline-block;
+	padding: 0px 2px;
+	text-align: center;
+	vertical-align: middle;
+}
+.countdown-show1 .countdown-section {
+	/*width: 98%;*/
+}
+.countdown-show2 .countdown-section {
+	/*width: 48%;*/
+}
+.countdown-show3 .countdown-section {
+	/*width: 32.5%;*/
+}
+.countdown-show4 .countdown-section {
+	/*width: 24.5%;*/
+}
+.countdown-show5 .countdown-section {
+	/*width: 19.5%;*/
+}
+.countdown-show6 .countdown-section {
+	/*width: 16.25%;*/
+}
+.countdown-show7 .countdown-section {
+	/*width: 14%;*/
+}
+.countdown-section {
+	display: inline-block;
+	font-size: 12px;
+	text-align: center;
+	vertical-align: middle;
+}
+.countdown-amount {
+    font-size: 12px;
+	padding: 0 5px;
+	color: #f60;
+	vertical-align: middle;
+}
+.countdown-period {
+    display: inline-block;
+	vertical-align: middle;
+}
+.countdown-descr {
+	display: inline-block;
+	vertical-align: middle;
+}
+/*============================= 通用tab圆角导航 =====================================*/
+/* coupon nav style */
+
+.corner-tab-nav {
+    padding: 14px 0;
+    margin-top: 15px;
+}
+/* normal nav */
+
+.corner-tab-nav a {
+    display: inline-block;
+    height: 30px;
+    margin: 0 5px;
+    color: #fff;
+    font-size: 14px;
+    line-height: 30px;
+}
+.corner-tab-nav a i {
+    float: left;
+    display: inline-block;
+    width: 14px;
+    height: 30px;
+    overflow: hidden;
+    cursor: pointer;
+}
+.corner-tab-nav a label {
+    display: inline-block;
+    float: left;
+    padding: 0 10px;
+    text-align: center;
+    cursor: pointer;
+    background: #8c8c8c;
+}
+.corner-tab-nav a span {
+    display: inline-block;
+    float: left;
+    padding: 0 10px;
+    text-align: center;
+    cursor: pointer;
+    background: #8c8c8c;
+}
+/* normal nav hover */
+
+.corner-tab-nav a:hover {
+    color: #fff;
+}
+.corner-tab-nav a:hover i {
+    visibility: visible;
+}
+.corner-tab-nav a:hover label {
+	position: relative;
+	padding: 0 10px;
+    background-color: #61bbe0;
+}
+.corner-tab-nav a:hover label:after {
+    content: "";
+	position: absolute;
+	left: 50%;
+	bottom: -16px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: -8px;
+    border-color: #61bbe0 transparent transparent transparent;
+    border-style: solid dashed dashed dashed;
+    border-width: 15px 8px 8px 8px;
+}
+/* nav cur */
+
+.corner-tab-nav a.cur i {
+    visibility: visible;
+}
+.corner-tab-nav a.cur label {
+	position: relative;
+	padding: 0 10px;
+	color: #fff;
+    background-color: #61bbe0;   
+}
+.corner-tab-nav a.cur label:after {
+	content: "";
+	position: absolute;
+	left: 50%;
+	bottom: -16px;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: -8px;
+    border-color: #61bbe0 transparent transparent transparent;
+    border-style: solid dashed dashed dashed;
+    border-width: 15px 8px 8px 8px;
+}
