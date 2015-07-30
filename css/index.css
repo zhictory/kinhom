@@ -798,7 +798,11 @@ body {
 /* 新品结束 */
 /* 频道开始 */
 .floor {
-	margin: 47px auto 0;
+	margin: 0 auto 30px;
+}
+
+.floor01 {
+	margin-top: 60px;
 }
 
 .floor .f-aside {
@@ -885,30 +889,410 @@ body {
 	width: 965px;
 }
 
-.floor .f-main .content-list li {
+.floor .f-main .content-list>li {
 	float: left;
 	margin-top: 5px;
 	margin-right: 5px;
+	width: 318px;
+	height: 274px;
 }
 
-.floor .f-main .content-list img {
+.floor .f-main .content-list>li img {
 	display: block;
 	width: 318px;
-	height: 295px;
+	height: 215px;
 }
 
-.floor .f-main .content-list li:nth-child(1) img {
+.floor .f-main .content-list dl {
+	text-align: center;
+}
+
+
+.floor .f-main .content-list dl a {
+	color: #8c8c8c;
+	transition: color 0.2s linear;
+}
+
+.floor .f-main .content-list dl a:hover {
+	color: #f60;
+}
+
+.floor .f-main .content-list dl i {
+	color: #f60;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.floor .f-main .content-list dl em {
+	position: relative;
+	top: 2px;
+	color: #8c8c8c;
+	text-decoration: line-through;
+}
+
+.floor .f-main .content-list dd p:nth-child(1) {
+	margin-top: 9px;
+}
+
+.floor .f-main .content-list dd p:nth-child(2) {
+	margin-top: 3px;
+}
+
+.floor .f-main .content-list>li:nth-child(1) {
+	position: relative;
 	width: 642px;
 	height: 295px;
 }
 
-.floor .f-main .content-list li:nth-child(2) {
+.floor .f-main .content-list>li:nth-child(1) img {
+	width: 642px;
+	height: 295px;
+}
+
+.floor .f-main .content-list>li:nth-child(2) {
+	margin-right: 0;
+	height: 295px;
+}
+
+.floor .f-main .content-list>li:nth-child(2) img {
+	height: 245px;
+}
+
+.floor .f-main .content-list>li:nth-child(5) {
 	margin-right: 0;
 }
 
-.floor .f-main .content-list li:nth-child(5) {
-	margin-right: 0;
+.floor .f-main .hot-list {
+	float: left;
+	margin-top: -2px;
+	padding: 10px 0;
+	width: 957px;
+	border: 1px solid #ccc;
+}
+
+.floor .f-main .hot-list dl {
+	position: relative;
+	float: left;
+	margin-left: 8px;
+	width: 160px;
+	height: 107px;
+}
+
+.floor .f-main .hot-list dl:first-child {
+	margin-left: 9px;
+	width: 95px;
+	overflow: hidden;
+}
+
+.floor .f-main .hot-list img {
+	width: 160px;
+	height: 107px;
+}
+
+.floor .f-main .hot-list dd {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: none;
+	color: #fff;
+	text-align: center;
+	background: url(../images/f_hot_bg.png) repeat-x;
+}
+
+.floor .f-main .hot-list a:hover dd {
+	display: block;
+}
+
+.floor .f-main .hot-list p:nth-child(1) {
+	height: 36px;
+}
+
+.floor .f-main .hot-list p:nth-child(3) {
+	margin: 4px auto;
+	width: 76px;
+	height: 26px;
+	border: 2px solid #fff;
+	border-radius: 2px;
+	text-align: center;
+	line-height: 26px;
+}
+
+.floor .f-main .hot-list i {
+	margin: -1px 0 0 11px;
+	border: 6px solid transparent;
+	border-left: 8px solid #fff;
+	border-right: 0;
+}
+
+.floor .f-main .hot-list .inner {
+	padding: 10px;
+}
+
+.floor .content-list .c-big-list>li:nth-child(2) {
+	display: none;
+}
+
+.floor .content-list .point {
+	position: absolute;
+	z-index: 0;
+	right: 25px;
+	bottom: 15px;
+}
+
+.floor .content-list .point a {
+	display: inline-block;
+	margin: 0 9px 0 0;
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background-color: #ccc;
+}
+
+.floor .content-list .point .p-on {
+	background-color: #f60;
+}
+
+.floor .content-list .point a:hover {
+	background-color: #f60;
 }
 
 
 /* 频道结束 */
+
+
+/* 装修汇开始 */
+
+.decor {
+	margin-top: 37px;
+}
+
+.decor .d-title {
+	color: #8c8c8c;
+	font-size: 14px;
+}
+
+.decor .d-content {
+	margin-top: 10px;
+}
+
+.decor .d-case {
+	float: left;
+	width: 873px;
+}
+
+.decor .d-case > dl {
+	float: left;
+	width: 214px;
+}
+
+.decor .d-case > dl dd {
+	padding: 10px 12px 5px 12px;
+	text-align: center;
+}
+
+.decor .d-case > dl img {
+	display: block;
+	width: 214px;
+	height: 130px;
+}
+
+.decor .d-case > dl h3 a {
+	color: #333;
+	font-size: 12px;
+	font-weight: bold;
+	transition: color 0.2s linear;
+}
+
+.decor .d-case > dl:hover h3 a {
+	color: #f60;
+}
+
+.decor .d-case > dl p.article {
+	margin-top: 5px;
+	height: 32px;
+	overflow: hidden;
+}
+
+.decor .d-case > dl p.article a {
+	color: #8c8c8c;
+	transition: color 0.2s linear;
+}
+
+.decor .d-case > dl p.article a:hover {
+	color: #f60;
+}
+
+
+.decor .d-case .case01 {
+	margin-bottom: 6px;
+	width: 873px;
+}
+
+.decor .d-case .case01 dt {
+	float: left;
+}
+
+.decor .d-case .case01 dd {
+	padding: 0;
+	float: left;
+	width: 523px;
+}
+
+.decor .d-case .inner {
+	padding: 10px 12px 5px 12px;
+}
+
+
+.decor .case01 .inner {
+	padding: 8px 10px 15px 10px;
+}
+
+.decor .d-case .case01 img {
+	display: block;
+	width: 350px;
+	height: 250px;
+}
+
+.decor .d-case .case01 h3 a {	
+	color: #333;
+	font-weight: normal;
+	font-size: 18px;
+	text-align: center;
+	line-height: 58px;
+	transition: color 0.2s linear;
+}
+
+.decor .d-case .case01 h3 a:hover {
+	color: #f60;
+}
+
+.decor .case01 dt {
+	position: relative;
+}
+
+.decor i {
+	position: absolute;
+	left: 8px;
+	top: -4px;
+	width: 114px;
+	height: 69px;
+	color: #573c29;
+	font-size: 16px;
+	text-align: center;
+	line-height: 88px;
+	text-shadow: 0px 1px 1px #fff;	
+	background: url(../images/index_bg_2014.png) no-repeat 0 -273px;;
+}
+
+.decor .d-case .case01 p.article {
+	width: 503px;
+	height: 116px;
+	text-indent: 28px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.decor .case01 p.article span {
+	display: block;
+	text-align: left;
+	text-indent: 28px;
+}
+
+.decor .case01 p.article a {
+	color: #8c8c8c;
+	font-size: 14px;
+	line-height: 24px;
+	transition: color 0.2s linear;
+}
+
+.decor .case01 p.article a:hover {
+	color: #f60;
+}
+
+.decor .case01 p.hot {
+	margin-top: 18px;
+	width: 510px;
+	height: 30px;
+	text-align: center;
+	line-height: 30px;
+	background: #E4D3B7;
+	overflow: hidden;
+}
+
+.decor .case01 p.hot a {
+	margin: 0 5px;
+	color: #333;
+	transition: color 0.2s linear;
+}
+
+.decor .case01 p.hot a:hover {
+	color: #f60;
+}
+
+.mr5 {
+	margin-right: 5px;
+}
+
+.d-aside {
+	margin-left: 12px;
+	float: left;
+	width: 305px;
+	height: 456px;
+}
+
+.d-topic {
+	position: relative;
+	float: left;
+	width: 304px;
+	height: 226px;
+}
+
+.d-topic img {
+	display: block;
+	width: 304px;
+	height: 226px;	
+}
+
+.d-hot {
+	position: relative;
+	margin-top: 7px;
+	float: left;
+	width: 304px;
+	height: 223px;
+	background: url(../images/example.jpg);
+}
+
+.d-hot img {
+	width: 304px;
+	height: 223px;
+}
+
+.d-h-list {
+	position: absolute;
+	bottom: 0;
+	padding: 13px 36px 10px 36px;
+	width: 230px;
+	border: 1px solid #ccc;
+	border-top: none;
+	background: #fff;
+}
+
+.d-h-list li {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.d-h-list a {
+	color: #333;
+	font-size: 14px;
+	line-height: 26px;
+	transition: color 0.2s linear;
+}
+
+.d-h-list a:hover {
+	color: #f60;
+}
+
+
+/* 装修汇结束 */
