@@ -1064,6 +1064,7 @@ body {
 
 .decor {
 	margin-top: 37px;
+	margin-bottom: 47px;
 }
 
 .decor .d-title {
@@ -1296,3 +1297,224 @@ body {
 
 
 /* 装修汇结束 */
+
+
+/* 评论开始 */
+
+.mr9 {
+	margin-right: 9px;
+}
+
+.comment {
+	border: 1px solid #ccc;
+}
+
+.c-voice {
+	position: relative;
+	float: left;
+	width: 890px;
+	border-right: 1px solid #ccc;
+}
+
+.c-voice h1 {
+	float: left;
+	width: 890px;
+	height: 80px;
+	text-align: left;
+}
+
+p.c-v-title {
+	margin: 4px 0 0 29px;
+}
+
+p.c-v-title img {
+	float: left;
+	width: 120px;
+	height: 80px;
+}
+
+p.c-v-title b {
+	float: left;
+	padding-left: 10px;
+	width: 154px;
+	color: #f60;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 80px;
+}
+
+.c-v-content {
+	float: left;
+	padding: 13px 34px 9px 28px;
+	width: 829px;
+}
+
+.c-v-content .content-list {
+	width: 829px;
+	height: 276px;
+}
+
+.c-v-content .content-list ul {
+	/*显式设置height为0是为了触发IE7的hasLayout属性，才能使用margin负边距*/
+	height: 0;
+	margin-left: -9px;
+}
+
+.c-v-content .content-list li {
+	float: left;
+	margin-left: 9px;
+	width: 198px;
+	height: 270px;
+	border: 1px solid #ccc;
+	border-bottom: 3px solid #ccc;
+}
+
+.c-v-content .content-list dl.inner {
+	padding: 10px 9px;
+}
+
+.c-v-content .content-list img {
+	width: 180px;
+	height: 120px;
+}
+
+.c-v-content .content-list span {
+	margin-top: 8px;
+	margin-bottom: 4px;
+	display: block;
+	height: 100px;
+	font-size: 12px;
+	overflow: hidden;
+}
+
+.c-v-content .content-list em {
+	color: #8c8c8c;
+}
+
+.c-v-content .content-list b {
+	color: #333;
+	font-weight: normal;
+}
+
+.c-v-content .content-list i {
+	color: #f60;
+	font-style: normal;
+	font-size: 18px;
+	font-weight: bold;
+	line-height: 18px;
+}
+
+.c-v-content .content-list p {
+	color: #8c8c8c;
+	text-align: right;
+}
+
+.c-v-content .point-list {
+	position: absolute;
+	right: 24px;
+	top: 36px;
+	text-align: center;
+}
+
+.point-list li {
+	float: left;
+	margin-right: 10px;
+}
+
+.point-list li a {
+	display: block;
+	width: 14px;
+	height: 14px;
+	border-radius: 50%;
+	background: #FFDFC9;
+}
+
+.point-list li a:hover {
+	background: #f60;
+}
+
+.point-list .p-on {
+	background: #f60;
+}
+
+.c-latest {
+	float: left;
+	width: 299px;
+}
+
+.c-latest h2 {
+	height: 39px;
+	border-bottom: 1px solid #ccc;
+	font-weight: 600;
+	color: #333;
+	font-size: 14px;
+	text-align: center;
+	line-height: 40px;
+}
+
+.c-l-content {
+	width: 300px;
+	height: 309px;
+	overflow: hidden;
+}
+
+.c-l-content ul.inner {
+	float: left;
+	padding: 20px 9px 15px;
+}
+
+.c-l-content dl {
+	float: left;
+	margin-bottom: 10px;
+	overflow: hidden;
+}
+
+.c-l-content dl dt {
+	float: left;
+}
+
+.c-l-content dl dt img {
+	display: block;
+	width: 140px;
+	height: 93px;
+}
+
+.c-l-content dl dd {
+	float: left;
+	width: 137px;
+	height: 93px;
+}
+
+.c-l-content p {
+	line-height: 18px;
+}
+
+.c-l-content em {
+	color: #f60;
+	white-space: nowrap;
+	overflow: hidden;	
+}
+
+.c-l-content span {
+	color: #8c8c8c;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.c-l-content b {
+	color: #333;
+	font-weight: normal;
+	white-space: nowrap;
+	overflow: hidden;	
+}
+
+.c-l-content div.inner {
+	padding: 22px 0 6px 10px;
+}
+
+.c-l-content a:hover b {
+	color: #f60;
+}
+
+
+/* 评论结束 */
