@@ -1307,6 +1307,7 @@ body {
 
 .comment {
 	border: 1px solid #ccc;
+	margin-bottom: 46px;
 }
 
 .c-voice {
@@ -1369,6 +1370,10 @@ p.c-v-title b {
 	border-bottom: 3px solid #ccc;
 }
 
+.c-v-content .content-list li:hover {
+	border-color: #f60;
+}
+
 .c-v-content .content-list dl.inner {
 	padding: 10px 9px;
 }
@@ -1385,6 +1390,7 @@ p.c-v-title b {
 	height: 100px;
 	font-size: 12px;
 	overflow: hidden;
+	line-height: 16px;
 }
 
 .c-v-content .content-list em {
@@ -1518,3 +1524,158 @@ p.c-v-title b {
 
 
 /* 评论结束 */
+
+
+/* 证书开始 */
+.credit {
+	margin-bottom: 48px;
+}
+
+.cre-list {
+	zoom: 1;
+	margin-left: -11px;
+}
+
+.cre-list li {
+	position: relative;
+	float: left;
+	margin-left: 10px;
+}
+
+.cre-list a:hover .cre-hide-list {
+	display: block;
+}
+
+.cre-list li img {
+	display: block;
+	width: 290px;
+	height: 100px;
+}
+
+.cre-hide-list {
+	position: absolute;
+	top: 100px;
+	display: none;
+	width: 650px;
+	height: 159px;
+}
+
+.cre-hide-list i {
+	position: absolute;
+	z-index: 1;
+	width: 23px;
+	height: 11px;
+	background: url(../images/index_bg_2014.png) no-repeat 0 -434px;	
+}
+
+.cre-hide-list .cre-hide {
+	position: absolute;
+	margin-top: 10px;
+	width: 648px;
+	height: 147px;	
+	border: 1px solid #ccc;
+	background: #FFEEC1;	
+}
+
+.cre-hide-list .inner {
+	margin-left: -10px;
+	padding: 7px 14px;
+}
+
+.cre-hide-list li img {
+	width: 200px;
+	height: 130px;
+}
+
+.r0 {
+	right: 0;
+}
+
+.l0 {
+	left: 0;
+}
+
+.l133 {
+	left: 133px;
+}
+
+.r133 {
+	right: 133px;
+}
+
+
+/* 证书结束 */
+
+
+/* 保障开始 */
+
+.guarantee {
+	padding: 12px 0;
+	background: #2F6CEB;
+}
+
+.gua-list {
+	float: left;
+	color: #fff;
+	font-size: 18px;
+}
+
+.gua-list dl {
+	display: block;
+	float: left;
+	margin-left: 80px;
+	width: 108px;
+	text-align: center;
+}
+
+.gua-list dl dt {
+	height: 34px;
+}
+
+.gua-list i {
+	background: url(../images/index_bg_2014.png) no-repeat;
+}
+
+.gua-list .icon_1 {
+	width: 42px;
+  	height: 23px;
+	background-position: -80px -385px;
+}
+
+.gua-list .icon_2 {
+	width: 33px;
+	height: 23px;
+	background-position: -126px -385px;
+}
+
+.gua-list .icon_3 {
+	width: 30px;
+	height: 28px;
+	background-position: -162px -385px;
+}
+
+.gua-list .icon_4 {
+	width: 31px;
+	height: 25px;
+	background-position: -194px -385px;
+}
+
+.gua-list .icon_5 {
+	width: 30px;
+	height: 26px;
+	background-position: -80px -353px;
+}
+
+.gua-list .icon_6 {
+	width: 26px;
+	height: 27px;
+	background-position: -207px -353px;
+}
+
+.gua-list .ml70 {
+	margin-left: 70px;
+}
+
+
+/* 保障结束 */
+
