@@ -17,7 +17,10 @@ body {
 	font-weight: bold;
 	color: #333;
 	line-height: 34px;
-	transition: color 0.3s linear;	
+	transition: color 0.3s linear;
+	-moz-transition: color 0.3s linear;	
+	-o-transition: color 0.3s linear;	
+	-webkit-transition: color 0.3s linear;	
 }
 
 .title2 a {
@@ -436,6 +439,9 @@ body {
 	background-color: #fff;
 	opacity: 0.8;
 	transition: color 0.3s linear;
+	-moz-transition: color 0.3s linear;
+	-o-transition: color 0.3s linear;
+	-webkit-transition: color 0.3s linear;
 }
 
 .banner .go i {
@@ -454,26 +460,37 @@ body {
 .banner .point {
 	position: absolute;
 	z-index: 0;
-	top: 60%;	
+	top: 60%;
 	width: 100%;
 	text-align: center;
 }
 
+.banner .point ul {
+	width: 120px;
+	margin: 0 auto;
+}
+
+.banner .point li {
+	margin: 0 3px;
+	width: 12px;
+	height: 12px;
+	float: left;
+}
+
 .banner .point a {
 	display: inline-block;
-	margin: 0 3px;
 	width: 12px;
 	height: 12px;
 	border-radius: 50%;
 	background-color: #ccc;
 }
 
-.banner .point .p-on {
+.banner .point .on a {
 	background-color: #f60;
 }
 
 .banner .point a:hover {
-	background-color: #f60;
+	/*background-color: #f60;*/
 }
 /* 图片焦点结束 */
 
@@ -557,6 +574,9 @@ body {
 .slider .info a {
 	color: #8c8c8c;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .slider .info a:hover {
@@ -789,6 +809,9 @@ body {
 .new .content a {
 	color: #333;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .new .content a:hover,
@@ -911,6 +934,9 @@ body {
 .floor .f-main .content-list dl a {
 	color: #8c8c8c;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .floor .f-main .content-list dl a:hover {
@@ -1039,6 +1065,10 @@ body {
 	bottom: 15px;
 }
 
+.floor .content-list .point li {
+	float: left;
+}
+
 .floor .content-list .point a {
 	display: inline-block;
 	margin: 0 9px 0 0;
@@ -1048,7 +1078,7 @@ body {
 	background-color: #ccc;
 }
 
-.floor .content-list .point .p-on {
+.floor .content-list .point .on a {
 	background-color: #f60;
 }
 
@@ -1102,6 +1132,9 @@ body {
 	font-size: 12px;
 	font-weight: bold;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .decor .d-case > dl:hover h3 a {
@@ -1117,6 +1150,9 @@ body {
 .decor .d-case > dl p.article a {
 	color: #8c8c8c;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .decor .d-case > dl p.article a:hover {
@@ -1161,6 +1197,9 @@ body {
 	text-align: center;
 	line-height: 58px;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .decor .d-case .case01 h3 a:hover {
@@ -1204,6 +1243,9 @@ body {
 	font-size: 14px;
 	line-height: 24px;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .decor .case01 p.article a:hover {
@@ -1224,6 +1266,9 @@ body {
 	margin: 0 5px;
 	color: #333;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .decor .case01 p.hot a:hover {
@@ -1289,6 +1334,9 @@ body {
 	font-size: 14px;
 	line-height: 26px;
 	transition: color 0.2s linear;
+	-moz-transition: color 0.2s linear;
+	-o-transition: color 0.2s linear;
+	-webkit-transition: color 0.2s linear;
 }
 
 .d-h-list a:hover {
@@ -1610,6 +1658,7 @@ p.c-v-title b {
 /* 保障开始 */
 
 .guarantee {
+	margin-bottom: 25px;
 	padding: 12px 0;
 	background: #2F6CEB;
 }
@@ -1678,4 +1727,122 @@ p.c-v-title b {
 
 
 /* 保障结束 */
+
+
+/* 底部开始 */
+
+.footer-service {
+	margin: 0 auto;
+	width: 1190px;
+	height: 137px;
+}
+
+.help-list {
+	margin-left: -7px;
+	float: left;
+	width: 670px;
+}
+
+.help-list dl {
+	margin-left: 24px;
+	float: left;
+	width: 110px;
+}
+
+.help-list a:hover {
+	color: #f60;
+}
+
+.help-list dt a {
+	color: #333;
+	font-size: 13px;
+	font-weight: bold;
+	line-height: 30px;
+	transition: color 0.1s linear;
+	-moz-transition: color 0.1s linear;	
+	-o-transition: color 0.1s linear;	
+	-webkit-transition: color 0.1s linear;	
+}
+
+.help-list dd a {
+	color: #8c8c8c;
+	line-height: 24px;
+	transition: color 0.1s linear;
+	-moz-transition: color 0.1s linear;	
+	-o-transition: color 0.1s linear;	
+	-webkit-transition: color 0.1s linear;	
+}
+
+.foot-contact {
+	margin: 0 20px 0 20px;
+	float: left;
+	font-size: 14px;
+	line-height: 26px;
+}
+
+.foot-contact .tel {
+	color: #f60;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.foot-wechat {
+	padding-left: 30px;
+	float: left;
+	border-left: 1px solid #ccc;
+}
+
+.foot-wechat dt {
+	float: left;
+	width: 91px;
+	height: 91px;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='D:/workspace/sublime/HeungKong/20150721/kinhom/images/2d.png', sizingMethod='scale');
+	background-image: url(../images/2d.png);
+	background-size: 100%;
+	-webkit-background-size: 100%;
+	-moz-background-size: 100%;
+	-o-background-size: 100%;
+}
+
+.foot-wechat dd {
+	padding-left: 10px;
+	margin-top: 56px;
+	float: left;
+	color: #8c8c8c;
+	line-height: 18px;
+}
+
+.copyright {
+	margin-bottom: 20px;
+	float: left;
+	width: 100%;
+	text-align: center;
+	line-height: 16px;
+}
+
+.copyright p {
+	line-height: 20px;
+}
+
+.copyright a {
+	color: #8c8c8c;
+	transition: color 0.1s linear;
+	-moz-transition: color 0.1s linear;
+	-o-transition: color 0.1s linear;
+	-webkit-transition: color 0.1s linear;
+}
+
+.copyright a:hover {
+	color: #f60;
+}
+
+.certificate {
+	float: left;
+	margin-bottom: 25px;
+	width: 100%;
+	text-align: center;
+}
+
+
+/* 底部结束 */
 
