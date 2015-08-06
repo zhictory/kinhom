@@ -745,7 +745,7 @@ body {
 }
 
 .new {
-	margin: 47px auto 0;
+	margin: 47px auto 60px;
 }
 
 .new .title {
@@ -869,11 +869,30 @@ body {
 }
 
 .floor .f-main {
+	position: relative;
 	float: left;
 	margin-left: 5px;
 	width: 965px;
 }
 
+.floor .f-main .tab-arrow {
+	position: absolute;
+	top: 35px;
+	left: 0;
+	width: 140px;
+	border-bottom: 2px solid #f60;
+}
+
+.floor .f-main .tab-arrow i {
+	position: absolute;
+	top: -10px;
+	left: 60px;
+	width: 0;
+	height: 0;
+	border-width: 5px;
+	border-color: transparent transparent #f60 transparent;
+	border-style: solid;
+}
 .floor .f-main .t-list {
 	float: left;
 	width: 965px;
@@ -892,6 +911,18 @@ body {
 	font-size: 14px;
 	font-weight: bold;
 	line-height: 40px;
+	transition: color 0.1s linear;
+	-webkit-transition: color 0.1s linear;
+	-moz-transition: color 0.1s linear;
+	-o-transition: color 0.1s linear;
+}
+
+.floor .f-main .t-list .on a {
+	color: #f60;
+}
+
+.floor .f-main .t-list li a:hover {
+	color: #f60;
 }
 
 .floor .f-main .t-list b {
@@ -906,10 +937,17 @@ body {
 	line-height: 35px;
 }
 
+.floor .f-main .content-list-wrap {
+	width: 965px;
+	height: 579px;
+	overflow: hidden;
+}
+
 .floor .f-main .content-list {
 	float: left;
 	margin-top: 3px;
 	width: 965px;
+	height: 276px;
 }
 
 .floor .f-main .content-list>li {
@@ -1212,6 +1250,7 @@ body {
 
 .decor i {
 	position: absolute;
+	z-index: 1;
 	left: 8px;
 	top: -4px;
 	width: 114px;
@@ -1289,14 +1328,86 @@ body {
 .d-topic {
 	position: relative;
 	float: left;
+}
+
+.d-topic-list {
+	position: relative;
+	z-index: 0;
 	width: 304px;
 	height: 226px;
+	overflow: hidden;
+}
+
+.d-topic-list li {
+	position: relative;
+	text-align: center;
+}
+
+.d-topic-list .title {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	bottom: 0;
+	margin-left: 5px;
+	width: 100%;
+	text-align: center;
+	line-height: 40px;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.d-topic-list li .bg {
+	position: absolute;
+	z-index: 0;
+	left: 0;
+	bottom: 0;
+	display: block;
+	width: 304px;
+	height: 40px;
+	background: #000;
+	opacity: 0.7;
+}
+
+.d-topic-list li a {
+	max-width: 290px;
+	color: #fff;
+	transition: color 0.1s linear;
+	-webkit-transition: color 0.1s linear;
+	-moz-transition: color 0.1s linear;
+	-o-transition: color 0.1s linear;
+}
+
+.d-topic-list li a:hover {
+	color: #f60;
 }
 
 .d-topic img {
 	display: block;
 	width: 304px;
 	height: 226px;	
+}
+
+.d-topic .prev {
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 50%;
+	margin-top: -18px;
+	width: 36px;
+	height: 36px;
+	background: url(../images/index_bg_2014.png) no-repeat 0 -391px;
+}
+
+.d-topic .next {
+	position: absolute;
+	z-index: 1;
+	right: 0;
+	top: 50%;
+	margin-top: -18px;
+	width: 36px;
+	height: 36px;
+	background: url(../images/index_bg_2014.png) no-repeat -41px -391px;
 }
 
 .d-hot {
@@ -1393,74 +1504,46 @@ p.c-v-title b {
 }
 
 .c-v-content {
-	float: left;
-	padding: 13px 34px 9px 28px;
-	width: 829px;
+	width: 890px;
+	height: 300px;
+	border-right: 1px solid #ccc;
+	overflow: hidden;
+}
+
+.c-v-content .tempWrap {
+	margin: 13px 16px 9px 38px;
 }
 
 .c-v-content .content-list {
-	width: 829px;
-	height: 276px;
+	margin: 13px 16px 9px 38px;
 }
 
-.c-v-content .content-list ul {
-	/*显式设置height为0是为了触发IE7的hasLayout属性，才能使用margin负边距*/
-	height: 0;
+.c-v-content li {
+	zoom: 1;
+	float: left;
 	margin-left: -9px;
 }
 
-.c-v-content .content-list li {
+.c-v-content dl {
 	float: left;
 	margin-left: 9px;
 	width: 198px;
-	height: 270px;
+	height: 272px;
 	border: 1px solid #ccc;
-	border-bottom: 3px solid #ccc;
 }
 
-.c-v-content .content-list li:hover {
+.c-v-content dl:hover {
 	border-color: #f60;
 }
 
-.c-v-content .content-list dl.inner {
-	padding: 10px 9px;
+.c-v-content dt {
+	padding: 10px 10px 0px 10px;
 }
 
-.c-v-content .content-list img {
+.c-v-content img {
+	display: block;
 	width: 180px;
 	height: 120px;
-}
-
-.c-v-content .content-list span {
-	margin-top: 8px;
-	margin-bottom: 4px;
-	display: block;
-	height: 100px;
-	font-size: 12px;
-	overflow: hidden;
-	line-height: 16px;
-}
-
-.c-v-content .content-list em {
-	color: #8c8c8c;
-}
-
-.c-v-content .content-list b {
-	color: #333;
-	font-weight: normal;
-}
-
-.c-v-content .content-list i {
-	color: #f60;
-	font-style: normal;
-	font-size: 18px;
-	font-weight: bold;
-	line-height: 18px;
-}
-
-.c-v-content .content-list p {
-	color: #8c8c8c;
-	text-align: right;
 }
 
 .c-v-content .point-list {
@@ -1487,7 +1570,7 @@ p.c-v-title b {
 	background: #f60;
 }
 
-.point-list .p-on {
+.point-list .on a {
 	background: #f60;
 }
 
@@ -1513,8 +1596,11 @@ p.c-v-title b {
 }
 
 .c-l-content ul.inner {
+	padding: 0;
+}
+
+.c-l-content .c-l-bd {
 	float: left;
-	padding: 20px 9px 15px;
 }
 
 .c-l-content dl {
@@ -1535,7 +1621,7 @@ p.c-v-title b {
 
 .c-l-content dl dd {
 	float: left;
-	width: 137px;
+	width: 160px;
 	height: 93px;
 }
 
@@ -1545,25 +1631,16 @@ p.c-v-title b {
 
 .c-l-content em {
 	color: #f60;
-	white-space: nowrap;
-	overflow: hidden;	
 }
 
 .c-l-content span {
 	color: #8c8c8c;
-	white-space: nowrap;
-	overflow: hidden;
 }
 
 .c-l-content b {
 	color: #333;
 	font-weight: normal;
-	white-space: nowrap;
-	overflow: hidden;	
-}
-
-.c-l-content div.inner {
-	padding: 22px 0 6px 10px;
+	white-space: nowrap;	
 }
 
 .c-l-content a:hover b {
