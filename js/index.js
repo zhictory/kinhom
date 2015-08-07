@@ -1,76 +1,78 @@
-var index = 0;//point的下标
-var f_index = 0;
+/*
+    by zhictory 2015-08-07
+*/
 
-//初始化
 $(document).ready(function(){
-
-	//焦点栏的轮播
-	var interval = setInterval(carousel, "3000");
-
-	$(".banner .big").mouseover(function() {
-		clearInterval(interval);
-	});
-
-	$(".banner .point a").mouseover(function() {
-		clearInterval(interval);
-		$(".banner .point a").removeClass("p-on");
-		$(this).addClass("p-on");
-		// var left = -774 * $(".banner .point a").index(this);
-		var left = -774 * $(this).index();
-		$(".banner .main").css("left", left+"px");
-	});
-
-	$(".banner .big").mouseout(function() {
-		index = $(".banner .point a").index($(".p-on"));
-		interval = setInterval(carousel, "3000");
-	});
-
-	//1楼的轮播
-	var f_in = setInterval(f_carousel, "3000");
-
-	$(".floor .c-big-list").mouseover(function() {
-		clearInterval(f_in);
-	});
-
-	$(".floor .point a").mouseover(function() {
-		clearInterval(f_in);
-		$(".floor .point a").removeClass("p-on");
-		$(this).addClass("p-on");
-		$(".floor .c-big-list>li").css("display", "none");
-		$(".floor .c-big-list>li:eq("+$(this).index()+")").css("display", "block");
-	});
-
-	$(".floor .c-big-list").mouseout(function() {
-		index = $("floor .point a").index($(".p-on"));
-		f_in = setInterval(f_carousel, "3000");
-	});
-
-});
-
-//轮播
-function carousel () {
-
-	if (index <= 5) {
-		$(".banner .point a").removeClass("p-on");
-		$(".banner .point a:eq("+index+")").addClass("p-on");
-		var left = -774 * index;
-		$(".banner .main").css("left", left+"px");	
-		index++;
-		if(index == 6) index = 0;
-	}
-
-}//carousel end
-
-//1楼轮播
-function f_carousel () {
-
-	if (f_index <= 1) {
-		$(".floor .point a").removeClass("p-on");
-		$(".floor .point a:eq("+f_index+")").addClass("p-on");
-		$(".floor .c-big-list>li").css("display", "none");
-		$(".floor .c-big-list>li:eq("+f_index+")").css("display", "block");
-		f_index++;
-		if(f_index == 2) f_index = 0;
-	}
-
-}//carousel end
+    /* 回到顶部开始 */
+    //生成侧边
+    var $div = $("<div id='topSide' class='topSide'></div>");
+    var $ul = $("<ul></ul>");
+    var $li1 = $("<li><a href='javascript:void(0)'><b class='orange'></b><i class='online'></i><span class='orange'>在线客服</span></a></li>");    
+    var $li2 = $("<li><a href='javascript:void(0)'><b class='blue'></b><i class='qq'></i><span class='blue'>QQ客服</span></a></li>");    
+    var $li3 = $("<li><a href='javascript:void(0)'><b class='sky'></b><i></i><span class='sky'>购物车</span></a></li>");    
+    var $li4 = $("<li id='gotop'><a href='javascript:void(0)'><b class='green'></b><i></i><span class='green'>回到顶部</span></a></li>");    
+    $ul.append($li1,$li2,$li3,$li4);
+    $div.append($ul);
+    $("body").append($div);
+    //回到顶部的效果
+    $("#gotop").click(function(){
+        $("html,body").stop().animate({scrollTop:"0px"},300);
+    });
+    //鼠标移入移出效果
+    $(".topSide li").mouseenter(function(){
+        $(this).stop().animate({left:"-62"},500);
+    });
+    $(".topSide li").mouseleave(function(){
+        $(this).stop().animate({left:"0"},500);
+    });
+    /* 回到顶部结束 */
+    /* 焦点图 */
+    $(".slideBox").slide({
+        titCell:".s-hd li",
+        mainCell:".s-bd ul",
+        trigger:"click",
+        autoPlay:true,
+        delayTime:"1000"
+    });
+    /* 频道楼层内部大图 */
+    $(".c-slideBox").slide({
+        titCell:".c-hd li",
+        mainCell:".c-bd ul",
+        trigger:"mouseover",
+        autoPlay:true,
+        delayTime:"1000"
+    });
+    /* 频道楼层外部大图 */
+    $(".f-slideBox").slide({
+        titCell:".f-hd li",
+        mainCell:".f-bd",
+        trigger:"mouseover",
+        delayTime:"1000",
+        startFun:function(i,c,s){
+            $(s).find(".tab-arrow").animate({left:140*i+"px"},150);
+        }
+    });
+    /* 装修汇 */
+    $(".d-slideBox").slide({
+        mainCell:".d-bd ul",
+        trigger:"click",
+        delayTime:"1000"
+    });
+    /* 评论 */
+    $(".c-v-slideBox").slide({
+        titCell:".c-v-hd li",
+        mainCell:".c-v-bd ul",
+        effect:"topLoop",
+        vis:1,
+        autoPlay:true,
+        delayTime:500
+    });
+    /* 最新购买 */
+    $(".c-l-slideBox").slide({
+        mainCell:".c-l-bd ul",
+        effect:"topLoop",
+        vis:3,
+        autoPlay:true,
+        delayTime:1000
+    });
+})
